@@ -8,6 +8,7 @@
 
 <table width="100%">
   <tr>
+    <th>Username</th>
     <th>Name</th>
     <th>Group</th>
     <th>Email</th>
@@ -19,7 +20,8 @@
 
 <% @users.each do |user| %>
   <tr class="<%= cycle('list_line_odd','list_line_even') %> entry">
-    <td><%= user.name %></td>
+  <td><%= user.username %></td>
+  <td><%= user.name %></td>
     <td><%= user.get_group(user.group_id) %></td>
     <td><%= user.email %></td>
     <td><%= user.password_digest %></td>

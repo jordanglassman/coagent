@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
 
-	def get_group(group_id)
-		@group_name=Group.find(group_id).name
-	end
 
   # GET /users
   # GET /users.json
