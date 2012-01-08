@@ -1,0 +1,74 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+*/
+
+@import "colors";
+@import "buttons";
+@import "list";
+
+.list_line_even { background: white; }
+.list_line_odd { background: $darkblue3M; }
+
+#banner {
+  background: white;
+  padding: 10px;
+  border-bottom: 2px solid $red3M;
+  font: small-caps 70px/70px "Times New Roman", serif;
+  color: $darkblue3M;
+  text-align: center;
+  min-height: 150px;
+  line-height: 150px;
+  vertical-align: center;
+  
+  img {
+    float: left;
+  }
+
+}
+
+.logo {
+	/*width: 75px;*/ 
+}
+
+#notice {
+  color: #000 !important;
+  border: 2px solid $red3M;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color: #f0f0f0;
+  font: bold smaller sans-serif;
+}
+
+#columns {
+  background: $darkblue3M;
+
+  #main {
+    margin-left: 17em;
+    padding: 1em;
+    background: white;
+  }
+
+  #side {
+    float: left;
+    padding: 1em 2em;
+    width: 13em;
+    background: $darkblue3M;
+
+    ul {
+      padding: 0;
+
+      li {
+        list-style: none;
+
+        a {
+          color: $lightblue3M;
+          font-size: medium;
+        }
+      }
+    }
+  }
+}
