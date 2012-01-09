@@ -16,10 +16,10 @@ class User < ActiveRecord::Base
 		validates :email, length: {minimum: 3, maximum: 254},
 			uniqueness: true,
 			email: true
-
-	# get group name for display on users model since group_id integer 1-4 						
+			
+	# get group name for display on users model since group_id is an integer 1-4 						
 	def get_group(gid)
 		@group_name=Group.find_by_gid(gid).name
 	end
-	
+			
 end

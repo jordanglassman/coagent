@@ -15,10 +15,13 @@
   
   <div id="columns">
     <div id="side">
+    <p><%= @current_time.strftime("%Y-%m-%d\n%H:%M:%S") %></p>
       <ul>
-
-        <li><a href="http://www..../faq">Projects</a></li>
-        <li><a href="http://www..../faq">Projects</a></li>
+      <li><%= link_to 'What\'s New', announcements_path %></li>
+      <li><%= link_to 'Top 5 Projects', top_projects_path %></li>
+      <li><%= link_to 'Top 5 Priorities', top_tasks_path %></li>
+      <li><%= link_to 'My Projects', list_projects_path %></li>
+      <li><%= link_to 'My Tasks', tasks_path %></li>
         <li><a href="http://www..../faq">Projects</a></li>        
         <li><a href="http://www..../faq">Projects</a></li>
         <li><a href="http://www..../faq">Projects</a></li>

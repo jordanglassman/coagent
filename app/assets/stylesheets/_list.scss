@@ -31,7 +31,8 @@
 	td a {
 		display:block;
 		height: 100%;
-		padding:0px;
+		padding:10px;
+		color: $black3M;
 	}
 	
 	a:hover {
@@ -39,7 +40,7 @@
 		background-color: $lightblue3M;
 	}
 	
-	:visited{
+	a:visited{
 		color: $black3M;
 	}
 	

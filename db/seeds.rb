@@ -27,11 +27,20 @@ Group.create(
 User.delete_all
 
 User.create(
+	uid: 1,
   username: "jordan",
   name: "Jordan Glassman",
   email: "jpglassman@gmail.com",
   group_id: 3,
-  password_digest: "jgdfjgj")
+  password_digest: "encrypted password")
+
+User.create(
+	uid: 2,
+  username: "randy",
+  name: "Randybob Winklevoss",
+  email: "test@test.com",
+  group_id: 1,
+  password_digest: "encrypted password")
 
 Project.delete_all
 
