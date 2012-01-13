@@ -9,17 +9,17 @@ class User < ActiveRecord::Base
 		validates :name, length: {minimum: 1, maximum: 254}
 		validates :password_digest, length: {minimum: 1, maximum: 254}		
 		
-		validates :group_id, numericality: true,
-		inclusion: {in: 1..4}
+		validates :group_id, numericality: { only_integer: true },
+		  inclusion: {in: 1..4}
 		
+		# email validation defined in lib/email_validator.rb
 		validates :email, length: {minimum: 3, maximum: 254},
 			uniqueness: true,
 			email: true
-			
 
-						
-	def get_group(group_id)
-		@group_name=Group.find(group_id).name
+	# get group name for display on users model since group_id integer 1-4 						
+	def get_group(gid)
+		@group_name=Group.find_by_gid(gid).name
 	end
 	
 end

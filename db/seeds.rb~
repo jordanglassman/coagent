@@ -5,3 +5,17 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Group.delete_all
+
+Group.create(
+		name: 'Super Users')
+
+Group.create(
+		name: 'Management Group')
+
+Group.create(
+		name: 'Project Managers')
+
+Group.create(
+		name: 'Technical Leads')

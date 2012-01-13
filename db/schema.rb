@@ -11,12 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120108174755) do
+ActiveRecord::Schema.define(:version => 20120113075523) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "gid"
   end
 
   create_table "groups_users", :id => false, :force => true do |t|
@@ -25,6 +26,39 @@ ActiveRecord::Schema.define(:version => 20120108174755) do
   end
 
   add_index "groups_users", ["group_id", "user_id"], :name => "index_groups_users_on_group_id_and_user_id", :unique => true
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "priority"
+    t.string   "project_manager"
+    t.string   "technical_lead"
+    t.integer  "tl_uid"
+    t.integer  "pm_uid"
+    t.date     "due_date"
+    t.string   "phase"
+    t.text     "status"
+    t.datetime "status_last_updated"
+    t.text     "key_resources"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.integer  "task_id"
+    t.integer  "project_id"
+    t.string   "name"
+    t.text     "description"
+    t.date     "due_date"
+    t.text     "notes"
+    t.integer  "severity"
+    t.integer  "status"
+    t.string   "resource"
+    t.string   "deliverable"
+    t.datetime "completed_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

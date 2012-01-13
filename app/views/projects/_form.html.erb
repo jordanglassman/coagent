@@ -1,0 +1,69 @@
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %><br />
+    <%= f.number_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :project_manager %><br />
+    <%= f.number_field :project_manager %>
+  </div>
+  <div class="field">
+    <%= f.label :technical_lead %><br />
+    <%= f.text_field :technical_lead %>
+  </div>
+  <div class="field">
+    <%= f.label :tl_uid %><br />
+    <%= f.number_field :tl_uid %>
+  </div>
+  <div class="field">
+    <%= f.label :project_manager %><br />
+    <%= f.text_field :project_manager %>
+  </div>
+  <div class="field">
+    <%= f.label :pm_uid %><br />
+    <%= f.number_field :pm_uid %>
+  </div>
+  <div class="field">
+    <%= f.label :due_date %><br />
+    <%= f.date_select :due_date %>
+  </div>
+  <div class="field">
+    <%= f.label :phase %><br />
+    <%= f.text_field :phase %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_area :status %>
+  </div>
+  <div class="field">
+    <%= f.label :status_last_updated %><br />
+    <%= f.datetime_select :status_last_updated %>
+  </div>
+  <div class="field">
+    <%= f.label :key_resources %><br />
+    <%= f.text_area :key_resources %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -13,3 +13,10 @@ two:
   group_id: 1
   email: MyString
   password_digest: MyString
+  
+user_with_valid_email:
+  username: MyUsername
+  name: MyString
+  group_id: 1
+  email: valid@email.com
+  password_digest: MyString  

@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  priority: 1
+  project_manager: 1
+  technical_lead: MyString
+  tl_uid: 1
+  project_manager: MyString
+  pm_uid: 1
+  due_date: 2012-01-12
+  phase: MyString
+  status: MyText
+  status_last_updated: 2012-01-12 23:43:23
+  key_resources: MyText
+
+two:
+  name: MyString
+  description: MyText
+  priority: 1
+  project_manager: 1
+  technical_lead: MyString
+  tl_uid: 1
+  project_manager: MyString
+  pm_uid: 1
+  due_date: 2012-01-12
+  phase: MyString
+  status: MyText
+  status_last_updated: 2012-01-12 23:43:23
+  key_resources: MyText

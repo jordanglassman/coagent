@@ -1,4 +1,8 @@
 Coagent::Application.routes.draw do
+  resources :tasks
+
+  resources :projects
+
   resources :users
 
   # The priority is based upon order of creation:

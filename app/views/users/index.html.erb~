@@ -1,7 +1,14 @@
-<h1>Listing users</h1>
+<% if notice %>
+	<p id="notice"><%= notice %></p>
+<% end %>
 
-<table>
+<h1>Users</h1>
+
+<div id="list">
+
+<table width="100%">
   <tr>
+    <th>Username</th>
     <th>Name</th>
     <th>Group</th>
     <th>Email</th>
@@ -12,9 +19,10 @@
   </tr>
 
 <% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <td><%= user.group_id %></td>
+  <tr class="<%= cycle('list_line_odd','list_line_even') %> entry">
+  <td><%= user.username %></td>
+  <td><%= user.name %></td>
+    <td><%= user.get_group(user.group_id) %></td>
     <td><%= user.email %></td>
     <td><%= user.password_digest %></td>
     <td><%= link_to 'Show', user %></td>
@@ -27,3 +35,6 @@
 <br />
 
 <%= link_to 'New User', new_user_path %>
+
+</div>  
+

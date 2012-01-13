@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @project.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @project.description %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%= @project.priority %>
+</p>
+
+<p>
+  <b>Project manager:</b>
+  <%= @project.project_manager %>
+</p>
+
+<p>
+  <b>Technical lead:</b>
+  <%= @project.technical_lead %>
+</p>
+
+<p>
+  <b>Tl uid:</b>
+  <%= @project.tl_uid %>
+</p>
+
+<p>
+  <b>Project manager:</b>
+  <%= @project.project_manager %>
+</p>
+
+<p>
+  <b>Pm uid:</b>
+  <%= @project.pm_uid %>
+</p>
+
+<p>
+  <b>Due date:</b>
+  <%= @project.due_date %>
+</p>
+
+<p>
+  <b>Phase:</b>
+  <%= @project.phase %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @project.status %>
+</p>
+
+<p>
+  <b>Status last updated:</b>
+  <%= @project.status_last_updated %>
+</p>
+
+<p>
+  <b>Key resources:</b>
+  <%= @project.key_resources %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

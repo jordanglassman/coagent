@@ -1,12 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  username: MyUsername
   name: MyString
   group_id: 1
   email: MyString
   password_digest: MyString
 
 two:
+  username: MyUsername
   name: MyString
   group_id: 1
   email: MyString

@@ -1,0 +1,47 @@
+<h1>Listing projects</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Priority</th>
+    <th>Project manager</th>
+    <th>Technical lead</th>
+    <th>Tl uid</th>
+    <th>Project manager</th>
+    <th>Pm uid</th>
+    <th>Due date</th>
+    <th>Phase</th>
+    <th>Status</th>
+    <th>Status last updated</th>
+    <th>Key resources</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.name %></td>
+    <td><%= project.description %></td>
+    <td><%= project.priority %></td>
+    <td><%= project.project_manager %></td>
+    <td><%= project.technical_lead %></td>
+    <td><%= project.tl_uid %></td>
+    <td><%= project.project_manager %></td>
+    <td><%= project.pm_uid %></td>
+    <td><%= project.due_date %></td>
+    <td><%= project.phase %></td>
+    <td><%= project.status %></td>
+    <td><%= project.status_last_updated %></td>
+    <td><%= project.key_resources %></td>
+    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    <td><%= link_to 'Destroy', project, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project', new_project_path %>

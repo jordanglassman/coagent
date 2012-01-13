@@ -1,0 +1,4 @@
+class AddGidColumnToGroups < ActiveRecord::Migration
+  def change
+  end
+end
