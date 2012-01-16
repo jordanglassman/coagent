@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   
   # GET /tasks/top
   def top
-    @tasks = Task.find(:all, order: :priority, limit: 5)
+    @tasks = Task.find(:all,  limit: 5)
 
     respond_to do |format|
       format.html # list.html.erb

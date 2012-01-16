@@ -1,0 +1,21 @@
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>Weekly Top 5 Projects</h1>
+
+<table>
+
+<% @projects.each do |project| %>
+  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+    <td><h3><%= link_to project.priority, project %></h3></td>
+    <td><h3><%= link_to project.name, project %></h3></td>
+    <td><h3><%= link_to project.get_user(project.pm_uid), project %></h3></td>
+    <td><h3><%= link_to project.get_user(project.tl_uid), project %></h3></td>
+    <td><h3><%= link_to project.due_date, project %></h3></td>
+    <td><h3><%= link_to project.status, project %></h3></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

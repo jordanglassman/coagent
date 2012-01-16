@@ -2,7 +2,7 @@
   <p id="notice"><%= notice %></p>
 <% end %>
 
-<h1>Top 5 Projects</h1>
+<h1>Weekly Top 5 Projects</h1>
 
 <table>
 

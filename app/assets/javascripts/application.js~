@@ -5,14 +5,5 @@
 // the compiled file.
 //
 //= require jquery
-//= require jquery-ui
 //= require jquery_ujs
 //= require_tree .
-
-$(function (){
-        $('#project_due_date').datepicker();
-});
-
-$(function (){
-        $('#announcement_min_date').datepicker();
-});

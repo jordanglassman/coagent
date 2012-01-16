@@ -32,11 +32,16 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
-		@current_time=Time.now
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @project }
+    begin
+      @project = Project.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      logger.error "Attempt to access invalid project #{params[:id]}"
+      redirect_to projects_url, notice: "Invalid project #{params[:id]} entered in URL"
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @project }
+      end
     end
   end
 

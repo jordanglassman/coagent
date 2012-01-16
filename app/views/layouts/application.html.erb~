@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Coagent</title>
+  <title>CoAgent</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class='<%= controller.controller_name %>'>
 
-<%= yield %>
+  <div id="banner">
+    <%= image_tag("3m_cogent_logo.jpg",class: "logo") %>
+    <%= @page_title || "CoAgent" %>
+  </div>
+  
+  <div id="columns">
+    <div id="side">
+    <p><%= @current_time.strftime("%Y-%m-%d\n%H:%M:%S") %></p>
+      <ul>
+      <li><%= link_to 'What\'s New', announcements_path %></li>
+      <li><%= link_to 'Top 5 Projects', top_projects_path %></li>
+      <li><%= link_to 'Top 5 Priorities', top_tasks_path %></li>
+      <li><%= link_to 'My Projects', list_projects_path %></li>
+      <li><%= link_to 'My Tasks', tasks_path %></li>
+        <li><a href="http://www..../faq">Projects</a></li>        
+        <li><a href="http://www..../faq">Projects</a></li>
+        <li><a href="http://www..../faq">Projects</a></li>
+        <li><a href="http://www..../faq">Projects</a></li>
+
+      </ul>
+    </div>
+    <div id="main">
+      <%= yield %>
+    </div>
+  </div>
+
 
 </body>
 </html>

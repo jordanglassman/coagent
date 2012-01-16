@@ -86,3 +86,77 @@ Project.create(
 	status: 'Project delivered and forgotten',
 	status_last_updated: DateTime.new(2010,6,16,2,3)
 	)
+
+Announcement.delete_all
+
+Announcement.create(
+  name: 'Announcement 1',
+  announcement: 'Don\'t forget to change your password')
+
+Announcement.create(
+  name: 'Announcement 2',
+  announcement: 'Definitely don\'t forget to change your password')
+
+Announcement.create(
+  created_at: "2010-01-01",
+  updated_at: "2011-01-01",
+  name: 'Announcement 3',
+  announcement: 'Most Definitely don\'t forget to change your password Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+
+Task.delete_all
+
+Task.create(
+  task_id: 1,
+  project_id: 1,
+  name: "MyString",
+  description: "MyText",
+  due_date: "2012-01-12",
+  notes: "MyText",
+  severity: 1,
+  status: "MyString",
+  resource: "MyString",
+  deliverable: "MyString",
+  completed_date: "2012-01-12 23:47:05",
+  priority_task_flag: true)
+
+Task.create(
+  task_id: 2,
+  project_id: 2,
+  name: "MyString",
+  description: "MyText",
+  due_date: "2012-01-12",
+  notes: "MyText",
+  severity: 1,
+  status: "MyString",
+  resource: "MyString",
+  deliverable: "MyString",
+  completed_date: "2012-01-12 23:47:05",
+  priority_task_flag: true)
+
+Task.create(
+  task_id: 3,
+  project_id: 2,
+  name: "MyString",
+  description: "MyText",
+  due_date: "2012-01-12",
+  notes: "MyText",
+  severity: 1,
+  status: "MyString",
+  resource: "MyString",
+  deliverable: "MyString",
+  completed_date: "2012-01-12 23:47:05",
+  priority_task_flag: false)
+
+Task.create(
+  task_id: 4,
+  project_id: 3,
+  name: "MyString",
+  description: "MyText",
+  due_date: "2012-01-12",
+  notes: "MyText",
+  severity: 1,
+  status: "MyString",
+  resource: "MyString",
+  deliverable: "MyString",
+  completed_date: "2012-01-12 23:47:05",
+  priority_task_flag: false)

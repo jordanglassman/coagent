@@ -1,5 +1,4 @@
 Coagent::Application.routes.draw do
-  resources :announcements
 
   resources :tasks do
   	collection do
@@ -11,6 +10,11 @@ Coagent::Application.routes.draw do
   	collection do
   		get 'list'
   		get 'top'
+  	end
+  end
+  resources :announcements do
+  	collection do
+  		get 'list'
   	end
 	end
 

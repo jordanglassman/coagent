@@ -10,8 +10,6 @@
 @import "buttons";
 @import "list";
 
-#ui-datepicker-div { display: none; }
-
 .list_line_even { background: white; }
 .list_line_odd { background: $darkblue3M; }
 
