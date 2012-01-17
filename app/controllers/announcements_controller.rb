@@ -18,7 +18,11 @@ class AnnouncementsController < ApplicationController
     end
     
     if params.has_key? :announcement_min_date then
-      session[:announcement_min_date] = params[:announcement_min_date]
+    	if !params[:announcement_min_date].blank? 
+      	session[:announcement_min_date] = params[:announcement_min_date]
+      else
+      	session[:announcement_min_date]=@current_time.localtime-1.week
+      end
     end
     
     @min_date = session[:announcement_min_date].to_datetime.utc

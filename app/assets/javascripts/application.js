@@ -10,9 +10,9 @@
 //= require_tree .
 
 $(function (){
-        $('#project_due_date').datepicker();
+		$('#project_due_date').datepicker({dateFormat: 'yy-mm-dd'});
 });
 
 $(function (){
-        $('#announcement_min_date').datepicker();
+        $('#announcement_min_date').datepicker({dateFormat: 'yy-mm-dd'});
 });

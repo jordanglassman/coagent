@@ -1,10 +1,21 @@
+<% if notice %>
+	<p id="notice"><%= notice %></p>
+<% end %>
+
 <h1>Listing announcements</h1>
 
 <table>
 
-
+<tr>
+<th>Announcement Id</th>
+<th>Announcement Name</th>
+<th>Announcement</th>
+<th>Created At</th>
+<th>Updated At</th>
+</tr>
 <% @announcements.each do |announcement| %>
   <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+    <td><%= announcement.id %></td>  
     <td><%= announcement.name %></td>
     <td><%= announcement.announcement %></td>
     <td><%= announcement.created_at %></td>

@@ -1,14 +1,14 @@
 <h1>Listing announcements</h1>
 
 <table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+
 
 <% @announcements.each do |announcement| %>
-  <tr>
+  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+    <td><%= announcement.name %></td>
+    <td><%= announcement.announcement %></td>
+    <td><%= announcement.created_at %></td>
+    <td><%= announcement.updated_at %></td>
     <td><%= link_to 'Show', announcement %></td>
     <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
     <td><%= link_to 'Destroy', announcement, confirm: 'Are you sure?', method: :delete %></td>

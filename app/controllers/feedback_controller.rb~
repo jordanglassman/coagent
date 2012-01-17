@@ -1,0 +1,8 @@
+class FeedbackController < ApplicationController
+  def write
+  end
+
+  def send
+  end
+
+end

@@ -1,3 +1,5 @@
+<div class="enhanced_form" >
+
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -10,7 +12,14 @@
       </ul>
     </div>
   <% end %>
-
+  
+  
+  <fieldset>
+  <legend>Enter User Information</legend>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -24,10 +33,17 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password_digest %><br />
-    <%= f.text_field :password_digest %>
+    <%= f.label :password, 'Password' %><br />
+    <%= f.password_field :password, size: 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, 'Confirm' %><br />
+    <%= f.password_field :password_confirmation, size: 40 %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+  </fieldset>
 <% end %>
+
+</div>

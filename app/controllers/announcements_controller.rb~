@@ -10,6 +10,27 @@ class AnnouncementsController < ApplicationController
     end
   end
 
+  # GET /announcements/list  
+  def list
+    
+    if session[:announcement_min_date].blank? then
+      session[:announcement_min_date]=@current_time.localtime-1.week
+    end
+    
+    if params.has_key? :announcement_min_date then
+      session[:announcement_min_date] = params[:announcement_min_date]
+    end
+    
+    @min_date = session[:announcement_min_date].to_datetime.utc
+      
+    @announcements = Announcement.find :all, order: 'updated_at desc', 
+    conditions: ["updated_at between \'#{@min_date}\' and \'#{@current_time.to_datetime.utc}\'"]
+    
+    respond_to do |format|
+      format.html # list.html.erb
+    end
+  end  
+  
   # GET /announcements/1
   # GET /announcements/1.json
   def show

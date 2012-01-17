@@ -1,3 +1,5 @@
+<div class="enhanced_form" >
+
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -11,6 +13,9 @@
     </div>
   <% end %>
   
+  
+  <fieldset>
+  <legend>Enter User Information</legend>
   <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username %>
@@ -21,17 +26,30 @@
   </div>
   <div class="field">
     <%= f.label :group_id %><br />
-    <%= f.number_field :group_id %>
+    <%= select(:user, :group_id, [['Select group', 999],['Super Users', 1],['Management Group', 2],['Project Managers', 3],['Technical Leads', 4]]) %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </div>
+
   <div class="field">
-    <%= f.label :password_digest %><br />
-    <%= f.text_field :password_digest %>
+  <% if @action_name=='new' %>
+  	<%= f.label :password, 'Password' %><br />
+  <% else %>
+  	<%= f.label :password, 'Change Password' %><br /> 
+  <% end %>
+  <%= f.password_field :password, size: 40 %>
   </div>
+  <div class="field">
+    <%= f.label :password_confirmation, 'Confirm' %><br />
+    <%= f.password_field :password_confirmation, size: 40 %>
+  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
+  </fieldset>
 <% end %>
+
+</div>

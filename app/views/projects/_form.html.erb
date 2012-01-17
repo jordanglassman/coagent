@@ -17,51 +17,40 @@
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, rows: 6, cols: 80 %>
   </div>
   <div class="field">
     <%= f.label :priority %><br />
     <%= f.number_field :priority %>
+    <p>(Available priorities: <%= @project.list_first_10_available_priorities @taken %>...)</p>
   </div>
-  <div class="field">
-    <%= f.label :project_manager %><br />
-    <%= f.number_field :project_manager %>
-  </div>
+
   <div class="field">
     <%= f.label :technical_lead %><br />
-    <%= f.text_field :technical_lead %>
+    <%= collection_select(:project, :technical_lead, User.find_all_by_group_id(4), :id, :name_for_form, prompt: true) %>
   </div>
-  <div class="field">
-    <%= f.label :tl_uid %><br />
-    <%= f.number_field :tl_uid %>
-  </div>
+
   <div class="field">
     <%= f.label :project_manager %><br />
-    <%= f.text_field :project_manager %>
+    <%= f.select(:project_manager, User.find_all_by_group_id(3).map { |user| [ user.name, user.id] } + ['TBD'], 
+    {:include_blank => 'Please select a PM'} ) %>
   </div>
-  <div class="field">
-    <%= f.label :pm_uid %><br />
-    <%= f.number_field :pm_uid %>
-  </div>
+
   <div class="field">
     <%= f.label :due_date %><br />
-    <%= f.text_field :due_date %>
+    <%= f.text_field :due_date, value: 'Click for calendar' %>
   </div>
   <div class="field">
     <%= f.label :phase %><br />
-    <%= f.text_field :phase %>
+    <%= select_tag(:phase, options_for_select([['To be delivered','To be delivered'],['Ongoing support','Ongoing support']])) %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.text_area :status %>
-  </div>
-  <div class="field">
-    <%= f.label :status_last_updated %><br />
-    <%= f.datetime_select :status_last_updated %>
+    <%= f.text_area :status, rows: 4 %>
   </div>
   <div class="field">
     <%= f.label :key_resources %><br />
-    <%= f.text_area :key_resources %>
+    <%= f.text_area :key_resources, rows: 4 %>
   </div>
   <div class="actions">
     <%= f.submit %>

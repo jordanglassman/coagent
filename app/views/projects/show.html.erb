@@ -1,75 +1,90 @@
 <% if notice %>
   <p id="notice"><%= notice %></p>
 <% end %>
-
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @project.description %>
-</p>
-
-<p>
-  <b>Priority:</b>
-  <%= @project.priority %>
-</p>
-
-<p>
-  <b>Project manager:</b>
-  <%= @project.project_manager %>
-</p>
-
-<p>
-  <b>Technical lead:</b>
-  <%= @project.technical_lead %>
-</p>
-
-<p>
-  <b>Tl uid:</b>
-  <%= @project.tl_uid %>
-</p>
-
-<p>
-  <b>Project manager:</b>
-  <%= @project.project_manager %>
-</p>
-
-<p>
-  <b>Pm uid:</b>
-  <%= @project.pm_uid %>
-</p>
-
-<p>
-  <b>Due date:</b>
-  <%= @project.due_date %>
-</p>
-
-<p>
-  <b>Phase:</b>
-  <%= @project.phase %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%= @project.status %>
-</p>
-
+<table>
+  <tr>
+    <td>
+      <p>
+        <b>Name:</b>
+        <%= @project.name %>
+      </p>
+    </td>
+    <td>
+      <p>
+        <b>Due date:</b>
+        <%= @project.due_date %>
+      </p>
+    </td>   
+    <td>
+      <p>
+        <b>Phase:</b>
+        <%= @project.phase %>
+      </p>
+    </td>      
+  </tr>
+  <tr>
+    <td colspan="3">
+      <p>
+        <b>Description:</b>
+        <%= @project.description %>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2">
+      <p>
+        <b>Priority:</b>
+        <%= @project.priority %>
+     </p>
+    </td>
+   <td>
+     <p>
+       <b>Status:</b>
+       <%= @project.status %>
+     </p>
+   </td>    
+    <td>
+      <p>
+        <b>Project manager:</b>
+        <%= @project.project_manager %>
+        (PM UID: <%= @project.pm_uid %>)
+      </p>
+    </td>
+  </tr>
+  <tr>
+  <td>
 <p>
   <b>Status last updated:</b>
-  <%= @project.status_last_updated %>
-</p>
+  <%= @project.status_last_updated.localtime %>
+</p>  
+</td>
+    <td>
+      <p>
+        <b>Technical lead:</b>
+        <%= @project.technical_lead %>
+        (TL UID: <%= @project.tl_uid %>)
+     </p>
+   </td>
+ </tr>
+  <tr>
+    <td colspan="3">
+      <p>
+        <b>Key Resources:</b>
+        <%= @project.key_resources %>
+      </p>
+    </td>
+  </tr>
+  <tr> 
+</table>
 
-<p>
-  <b>Key resources:</b>
-  <%= @project.key_resources %>
-</p>
+<br/>
 
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<div id="button_holder">
+<div id="floated_button"><%= button_to 'Edit Project', edit_project_path(@project), 
+	method: 'get', class: 'medium_button' %></div>
+<div id="floated_button"><%= button_to 'Back to My Projects', list_projects_path, 
+	method: 'get', class: 'medium_button' %></div>
+</div>
 
 <h1>Project Tasks</h1>
 

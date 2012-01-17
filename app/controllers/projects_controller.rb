@@ -49,6 +49,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = Project.new
+    @taken = Project.select(:priority).order(:priority).limit(10)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -59,13 +60,16 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
+    @taken = Project.select(:priority).order(:priority).limit(10)
   end
 
   # POST /projects
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
-
+    @taken = Project.select(:priority).order(:priority).limit(10)
+ 
+    
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }

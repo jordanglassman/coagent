@@ -1,0 +1,21 @@
+<h1>What's New since <%= distance_of_time_in_words(@min_date,@current_time) %> </h1>
+
+<table>
+ 
+<% @announcements.each do |announcement| %>
+  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+    <td><h3><%= announcement.updated_at %></h3></td>
+    <td><h3><%= announcement.announcement %></h3></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= form_tag list_announcements_path, method: 'get' do %>
+  <%= submit_tag 'View announcements since...' %>
+  <%= text_field_tag 'announcement_min_date', nil, placeholder: 'Click for calendar' %>
+<% end %>
+            
+
+

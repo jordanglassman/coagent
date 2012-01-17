@@ -1,0 +1,17 @@
+<h1>What's New in the last <%= distance_of_time_in_words(@min_date,@current_time) %> </h1>
+
+<table>
+
+<% render 'announcements' %>
+
+</table>
+
+<br />
+
+<%= form_tag list_announcements_path, method: 'get' do %>
+  <%= submit_tag 'View announcements since...' %>
+  <%= text_field_tag 'announcement_min_date', nil, placeholder: 'Click for calendar' %>
+<% end %>
+            
+
+

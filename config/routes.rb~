@@ -1,6 +1,15 @@
 Coagent::Application.routes.draw do
-  resources :announcements
 
+  get "account/settings"
+
+  get "account/home"
+
+	controller :sessions do
+		get 'login' => :new
+		post 'login' => :create
+		delete 'logout' => :destroy
+	end
+	
   resources :tasks do
   	collection do
   		get 'list'
@@ -11,6 +20,11 @@ Coagent::Application.routes.draw do
   	collection do
   		get 'list'
   		get 'top'
+  	end
+  end
+  resources :announcements do
+  	collection do
+  		get 'list'
   	end
 	end
 

@@ -15,19 +15,27 @@
   
   <div id="columns">
     <div id="side">
-    <p><%= @current_time.strftime("%Y-%m-%d\n%H:%M:%S") %></p>
+    <p><%= @current_time.localtime.strftime("%Y-%m-%d\n%H:%M:%S") %></p>
       <ul>
-      <li><%= link_to 'What\'s New', announcements_path %></li>
+      <li><%= link_to 'What\'s New', list_announcements_path %></li>
       <li><%= link_to 'Top 5 Projects', top_projects_path %></li>
-      <li><%= link_to 'Top 5 Priorities', top_tasks_path %></li>
+      <li><%= link_to 'Weekly Priorities', top_tasks_path %></li>
       <li><%= link_to 'My Projects', list_projects_path %></li>
       <li><%= link_to 'My Tasks', tasks_path %></li>
-        <li><a href="http://www..../faq">Projects</a></li>        
-        <li><a href="http://www..../faq">Projects</a></li>
-        <li><a href="http://www..../faq">Projects</a></li>
-        <li><a href="http://www..../faq">Projects</a></li>
-
+      <li><a href="http://www..../faq">My Account</a></li>
+      <li><a href="http://www..../faq">Feedback</a></li>
       </ul>
+      
+      <% if session[:user_id] %>
+      	<%= button_to 'Logout', logout_path, method: :delete %>
+      <% end %>
+      
+      <% if true # this will eventually be the admin tasks %>
+      	<ul>
+      	  <li><%= link_to 'Edit Announcements', announcements_path %></li>
+      	</ul>
+      <% end %>
+      
     </div>
     <div id="main">
       <%= yield %>
