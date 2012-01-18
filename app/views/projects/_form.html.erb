@@ -27,12 +27,13 @@
 
   <div class="field">
     <%= f.label :technical_lead %><br />
-    <%= collection_select(:project, :technical_lead, User.find_all_by_group_id(4), :id, :name_for_form, prompt: true) %>
+    <%= f.select(:technical_lead, User.joins(:groups).where('groups.name'=>'Technical Leads').map { |user| [ user.name, user.id] } + ['TBD'], 
+    {:include_blank => 'Please select a TL'} ) %>
   </div>
 
   <div class="field">
     <%= f.label :project_manager %><br />
-    <%= f.select(:project_manager, User.find_all_by_group_id(3).map { |user| [ user.name, user.id] } + ['TBD'], 
+    <%= f.select(:project_manager, User.joins(:groups).where('groups.name'=>'Project Managers').map { |user| [ user.name, user.id] } + ['TBD'], 
     {:include_blank => 'Please select a PM'} ) %>
   </div>
 

@@ -4,6 +4,8 @@ class Project < ActiveRecord::Base
   validates :priority, numericality: { only_integer: true, greater_than_or_equal_to: 1}
   validates :priority, uniqueness: true
   
+  validates :due_date, presence: true
+  
   after_create :create_default_tasks
   before_create :update_status_last_updated
   before_destroy :ensure_not_referenced_by_any_tasks
@@ -26,7 +28,9 @@ class Project < ActiveRecord::Base
 			while i<10
   			taken_array.each do |k|
     			if j==k
-      			j+=1
+       			until j!=k
+      				j+=1
+      			end
     			end
    			end
    			unused[i]=j

@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
   	user = User.find_by_name(params[:username])
   	if user and user.authenticate(params[:password])
   		session[:user_id] = user.id
-  		session[:group_id] = user.group_id
+  		session[:group_id] = user.groups[0].name
+  		logger.info session[:group_id]   
   		redirect_to account_home_url
   	else
   		redirect_to login_url, alert: 'Invalid username/password combination'

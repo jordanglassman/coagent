@@ -1,13 +1,22 @@
 class FeedbackController < ApplicationController
-  def compose
+  def compose_feedback
   	respond_to do |format|
-      format.html # compose.html.erb
+      format.html 
     end
   end
-
-  def transmit
+  def compose_feature_suggestion
   	respond_to do |format|
-      format.html # transmit.html.erb
+      format.html # 
+    end
+  end
+  def transmit
+  	@name = params[:name]
+  	@user_name = params[:user_name]
+  	@email = params[:email]
+  	@description = params[:description] 
+  	FeedbackSender.transmit(@name,@user_name,@email,@description).deliver
+  	respond_to do |format|
+      format.html 
     end  	
   end
 

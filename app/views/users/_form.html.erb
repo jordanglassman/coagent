@@ -25,8 +25,9 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :group_id %><br />
-    <%= select(:user, :group_id, [['Select group', 999],['Super Users', 1],['Management Group', 2],['Project Managers', 3],['Technical Leads', 4]]) %>
+    <%= f.label 'Group' %> 
+    <%= collection_select :user, :id, User.all(joins: :groups, select: 'distinct groups.id, groups.name').map { 
+    	|name| [ name.name, name.id ] }, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :email %><br />

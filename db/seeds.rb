@@ -6,41 +6,83 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Group.delete_all
+def create_seed_user(name,group)
+	User.create(
+		username: name,
+		name: name,
+		email: "#{name}@cogentsystems.com",
+		password: 'password',
+		password_confirmation: 'password',
+		groups: Group.where("name is ?",group)
+	)
+end
 
-Group.create(
-    gid: 1,
-		name: 'Super Users')
+Group.destroy_all
 
-Group.create(
-    gid: 2,
-		name: 'Management Group')
+Group.create([
+	{name: 'Super Users'},
+	{name: 'Management Group'},
+	{name: 'Project Managers'},	
+	{name: 'Technical Leads'}
+	])
 
-Group.create(
-    gid: 3,  
-		name: 'Project Managers')
+User.destroy_all
 
-Group.create(
-    gid: 4,  
-		name: 'Technical Leads')
-
-User.delete_all
-
+#all seeded users have password = 'password'
 User.create(
-	uid: 1,
   username: "jordan",
   name: "Jordan Glassman",
-  email: "jpglassman@gmail.com",
-  group_id: 3,
-  password_digest: "encrypted password")
+  email: "jpglassman@cogentsystems.com",
+  password: 'password',
+  password_confirmation: 'password',
+  groups: Group.where("name is 'Technical Leads'")
+)
 
 User.create(
-	uid: 2,
-  username: "randy",
-  name: "Randybob Winklevoss",
-  email: "test@test.com",
-  group_id: 1,
-  password_digest: "encrypted password")
+  username: "admin",
+  name: "admin",
+  email: "admin@cogentsystems.com",
+  password: 'password',
+  password_confirmation: 'password',
+  groups: Group.where("name is 'Super Users'")
+)
+
+create_seed_user('su','Super Users')
+create_seed_user('su2','Super Users')
+create_seed_user('mg','Management Group')
+create_seed_user('mg2','Management Group')
+create_seed_user('tl','Technical Leads')
+create_seed_user('tl2','Technical Leads')
+create_seed_user('pm','Project Managers')
+create_seed_user('pm2','Project Managers')
+
+
+User.create(
+  username: "mlee",
+  name: "Michael Lee",
+  email: "mlee18@cogentsystems.com",
+  password: 'password',
+  password_confirmation: 'password',
+  groups: Group.where("name is 'Super Users'")
+)
+
+User.create(
+  username: "wstelz",
+  name: "Walt Stelz",
+  email: "wstelz@cogentsystems.com",
+  password: 'password',
+  password_confirmation: 'password',
+  groups: Group.where("name is 'Super Users'")
+)
+
+User.create(
+  username: "gmorgon",
+  name: "Greg Morgon",
+  email: "gmorgon@cogentsystems.com",
+  password: 'password',
+  password_confirmation: 'password',
+  groups: Group.where("name is 'Super Users'")
+)
 
 Project.delete_all
 

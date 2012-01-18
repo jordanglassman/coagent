@@ -1,0 +1,26 @@
+<h1>CoAgent 0.01</h1>
+<h2>Developed in Rails <%= Rails.version %> with Ruby <%= RUBY_VERSION %></h2> 
+<h2>by J. Glassman</h2>
+<p>Please suggest new features here.  A public feature request-tracker is coming soon.</p>
+
+<%= form_tag(transmit_feedback_path, method: :post) do %>
+ <p>
+   New feature name:<br />
+   <%= text_field_tag "name" %>
+ </p>
+ <p>
+   Optional name:<br />
+   <%= text_field_tag "user_name" %>
+ </p> 
+ <p>
+   Optional email:<br />
+   <%= text_field_tag "email" %>
+ </p>  
+ <p>
+   Describe your new feature suggestion:<br />
+   <%= text_area_tag "description", "", :size=>"50x20" %>
+ </p>
+ <p>
+   <%= submit_tag 'Submit' %>
+ </p>
+<% end %>

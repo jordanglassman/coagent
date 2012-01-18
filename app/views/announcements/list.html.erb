@@ -1,13 +1,7 @@
 <h1>What's New in the last <%= distance_of_time_in_words(@min_date,@current_time) %> </h1>
 
 <table>
- 
-<% @announcements.each do |announcement| %>
-  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
-  <td><h3><%= announcement.updated_at.strftime("%A, %B %d") %></h3></td>
-    <td><h3><%= announcement.announcement %></h3></td>
-  </tr>
-<% end %>
+<%= render @announcements %>
 </table>
 
 <br />

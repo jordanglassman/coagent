@@ -1,8 +1,8 @@
 Coagent::Application.routes.draw do
 
-  get "feedback/compose", as: :compose_feedback
-
-  get "feedback/transmit", as: :transmit_feedback
+  get "feedback/compose_feedback", as: :compose_feedback
+  get "feedback/compose_feature_suggestion", as: :compose_suggestion
+  post "feedback/transmit", as: :transmit_feedback
 
   match 'settings' => 'account#settings', as: :account_settings
   match 'home' => 'account#home', as: :account_home

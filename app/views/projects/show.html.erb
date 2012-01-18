@@ -46,8 +46,8 @@
     <td>
       <p>
         <b>Project manager:</b>
-        <%= @project.project_manager %>
-        (PM UID: <%= @project.pm_uid %>)
+        <%= @project.get_user(@project.project_manager) %>
+        (PM UID: <%= @project.project_manager %>)
       </p>
     </td>
   </tr>
@@ -61,8 +61,8 @@
     <td>
       <p>
         <b>Technical lead:</b>
-        <%= @project.technical_lead %>
-        (TL UID: <%= @project.tl_uid %>)
+        <%= @project.get_user(@project.technical_lead) %>
+        (TL UID: <%= @project.technical_lead %>)
      </p>
    </td>
  </tr>
@@ -92,12 +92,20 @@
 
 <% @project.tasks.order(:due_date).each do |task| %>
   <tr class="<%= cycle('list_line_odd','list_line_even') %>">
-    <td><h3><%= link_to task.task_id, task %></h3></td>
+    <td><h3><%= link_to task.id, task %></h3></td>
     <td><h3><%= link_to task.name, task %></h3></td>
     <td><h3><%= link_to truncate(task.description,length: 50), task %></h3></td>
     <td><h3><%= link_to task.due_date.to_s+' ('+distance_of_time_in_words(@current_time, task.due_date)+" from now)", task %></h3></td>
     </tr>
 <% end %>
 </table>
+
+<br/>
+
+<div id="button_holder">
+<div id="floated_button">
+	<%= new_task_button(@project.id) %>
+</div>
+</div>
 
 
