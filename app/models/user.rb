@@ -2,7 +2,7 @@ require 'email_validator'
 
 class User < ActiveRecord::Base
 		has_secure_password
-	
+
 	
 		has_and_belongs_to_many :groups, uniq: true
 		
@@ -31,5 +31,7 @@ class User < ActiveRecord::Base
 	def name_for_form
 		"#{name}"
 	end
+	
+
 
 end

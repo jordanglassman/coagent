@@ -1,10 +1,22 @@
 class Project < ActiveRecord::Base
   has_many :tasks, dependent: :destroy
   
+  validates :name, presence: true
+  validates :name, uniqueness: true
+    
   validates :priority, numericality: { only_integer: true, greater_than_or_equal_to: 1}
   validates :priority, uniqueness: true
   
+  validates :technical_lead, presence: true
+  
+  validates :project_manager, presence: true
+  
   validates :due_date, presence: true
+  
+  validates :phase, presence: true
+  validates :phase, inclusion: { in: ['To be delivered','Ongoing support'] }
+  
+  validates :status, presence: true
   
   after_create :create_default_tasks
   before_create :update_status_last_updated

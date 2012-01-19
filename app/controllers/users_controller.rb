@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-
-
 	
   # GET /users
   # GET /users.json
@@ -61,9 +59,14 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    
+    users_audit_log_file = File.open("#{Rails.root}/log/users.log",'a')
+    users_audit_log = AuditLogger.new(users_audit_log_file)
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+    	status,changed = @user.update_attributes_changed(params[:user])
+      if status
+      	users_audit_log.info "superuser #{User.find(session[:user_id]).username} made changes to #{@user.username}: #{changed}"
         format.html { redirect_to users_url, notice: "User #{@user.name} was successfully updated." }
         format.json { head :ok }
       else

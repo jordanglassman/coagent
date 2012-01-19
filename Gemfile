@@ -36,3 +36,6 @@ group :test do
 end
 
 gem "jquery-ui-themes", "~> 0.0.4"
+
+gem 'prawn'
+gem 'prawnto'

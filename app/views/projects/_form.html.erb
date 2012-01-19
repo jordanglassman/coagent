@@ -36,18 +36,24 @@
     <%= f.select(:project_manager, User.joins(:groups).where('groups.name'=>'Project Managers').map { |user| [ user.name, user.id] } + ['TBD'], 
     {:include_blank => 'Please select a PM'} ) %>
   </div>
-
-  <div class="field">
-    <%= f.label :due_date %><br />
-    <%= f.text_field :due_date, value: 'Click for calendar' %>
-  </div>
+  <% if @project.due_date.blank? %>
+  	<div class="field">
+    		<%= f.label :due_date %><br />
+    		<%= f.text_field :due_date, value: 'Click for calendar' %>
+  	</div>
+  <% else %>
+  	<div class="field">
+    		<%= f.label :due_date %><br />
+    		<%= f.text_field :due_date, value: @project.due_date %>
+  	</div>
+  <% end %>
   <div class="field">
     <%= f.label :phase %><br />
-    <%= select_tag(:phase, options_for_select([['To be delivered','To be delivered'],['Ongoing support','Ongoing support']])) %>
+    <%= f.select(:phase, options_for_select([['To be delivered','To be delivered'],['Ongoing support','Ongoing support']])) %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.text_area :status, rows: 4 %>
+    <%= f.text_area :status, rows: 4, value: 'Project created' %>
   </div>
   <div class="field">
     <%= f.label :key_resources %><br />

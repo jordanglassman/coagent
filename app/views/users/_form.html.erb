@@ -25,15 +25,17 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label 'Group' %> 
-    <%= collection_select :user, :id, User.all(joins: :groups, select: 'distinct groups.id, groups.name').map { 
-    	|name| [ name.name, name.id ] }, :id, :name %>
+    <% for group in Group.all %>
+      <div>
+        <%= check_box_tag 'user[group_ids][]', group.id, @user.groups.include?(group) %>
+        <%= group.name %>
+      </div>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.email_field :email %>
   </div>
-
   <div class="field">
   <% if @action_name=='new' %>
   	<%= f.label :password, 'Password' %><br />

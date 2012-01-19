@@ -1,15 +1,39 @@
 class ProjectsController < ApplicationController
+	
+	before_filter :set_taken_priorities
+	
+	def set_taken_priorities
+		@taken = Project.select(:priority).order(:priority)
+	end
+	
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.order(:priority)
-
+    @start_date = Time.now.beginning_of_week.strftime("%m/%d/%Y")
+    @one_week_later = (Time.now.beginning_of_week + 1.week).strftime("%m/%d/%Y")
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @projects }
+      format.pdf
     end
   end
 
+  # GET /projects/report
+  def report
+  	
+    @projects_tbd = Project.find_all_by_phase('To be delivered', order: :priority)
+    @projects_os = Project.find_all_by_phase('Ongoing support', order: :priority)
+
+    @start_date = Time.now.beginning_of_week.strftime("%m/%d/%Y")
+    @one_week_later = (Time.now.beginning_of_week + 1.week).strftime("%m/%d/%Y")
+    
+    respond_to do |format|
+      format.pdf
+    end
+  end
+  
   # GET /projects/list
   def list
     @projects = Project.order(:priority)
@@ -45,11 +69,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  
+  
   # GET /projects/new
   # GET /projects/new.json
   def new
     @project = Project.new
-    @taken = Project.select(:priority).order(:priority)
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @project }
@@ -59,22 +85,20 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
-    @taken = Project.select(:priority).order(:priority)
+
   end
 
   # POST /projects
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
-    @taken = Project.select(:priority).order(:priority)
- 
     
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render json: @project, status: :created, location: @project }
-      	AssignmentNotifier.assigned(@project,'TL').deliver
-      	AssignmentNotifier.assigned(@project,'PM').deliver
+      	AssignmentNotifier.assigned(@project,'TL').deliver unless @project.technical_lead == 'TBD'
+      	AssignmentNotifier.assigned(@project,'PM').deliver unless @project.project_manager == 'TBD'
       else
         format.html { render action: "new" }
         format.json { render json: @project.errors, status: :unprocessable_entity }

@@ -6,8 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# makes generic users to populate tables for testing
+# also returns a new user so some of those attrs can be used for other seeds
 def create_seed_user(name,group)
-	User.create(
+	new_user = User.create(
 		username: name,
 		name: name,
 		email: "#{name}@cogentsystems.com",
@@ -15,6 +17,7 @@ def create_seed_user(name,group)
 		password_confirmation: 'password',
 		groups: Group.where("name is ?",group)
 	)
+	new_user
 end
 
 Group.destroy_all
@@ -51,10 +54,10 @@ create_seed_user('su','Super Users')
 create_seed_user('su2','Super Users')
 create_seed_user('mg','Management Group')
 create_seed_user('mg2','Management Group')
-create_seed_user('tl','Technical Leads')
-create_seed_user('tl2','Technical Leads')
-create_seed_user('pm','Project Managers')
-create_seed_user('pm2','Project Managers')
+new_tl_1 = create_seed_user('tl','Technical Leads')
+new_tl_2 = create_seed_user('tl2','Technical Leads')
+new_pm_1 = create_seed_user('pm','Project Managers')
+new_pm_2 = create_seed_user('pm2','Project Managers')
 
 
 User.create(
@@ -86,26 +89,24 @@ User.create(
 
 Project.delete_all
 
-Project.create(
+project_1 = Project.create(
 	name: 'Imperial County',
 	description: 'Simple CAFIS Prime',
 	priority: 2,
-	project_manager: 'Greg Morgon',
-	technical_lead: 'Jordan Glassman',
-	pm_uid: 1,
-	tl_uid: 2,
+	project_manager: new_pm_1.id,
+	technical_lead: new_tl_1.id,
 	due_date: Date.new(2012,1,17),
 	phase: 'To be delivered',
 	status: 'In progress',
 	status_last_updated: DateTime.new(2012,1,5,15,13)
 	)
 
-Project.create(
+project_2 = Project.create(
 	name: 'The Moon',
 	description: 'Very Futuristic CAFIS System',
 	priority: 1,
-	project_manager: 'Robert Heinlein',
-	technical_lead: 'Arthur C. Clarke',
+	project_manager: new_pm_2.id,
+	technical_lead: new_tl_2.id,
 	pm_uid: 1,
 	tl_uid: 2,	
 	due_date: Date.new(2013,2,23),
@@ -114,13 +115,13 @@ Project.create(
 	status_last_updated: DateTime.new(2012,1,4,11,11)
 	)
 
-Project.create(
+project_3 = Project.create(
 	name: 'St. Paul\'s Cathedral',
 	description: %{ Old, Storied CAFIS System That No One Cares About Anymore 
 	(which also has a very, very, very long description for testing purposes) },
 	priority: 3,
-	project_manager: 'Randybob Winklevoss',
-	technical_lead: 'Jimbob Winklevoss',
+	project_manager: new_pm_1.id,
+	technical_lead: new_tl_2.id,
 	pm_uid: 1,
 	tl_uid: 2,	
 	due_date: Date.new(2010,6,15),
@@ -133,7 +134,11 @@ Announcement.delete_all
 
 Announcement.create(
   name: 'Announcement 1',
-  announcement: 'Don\'t forget to change your password')
+  announcement: 'Welcome to CoAgent 0.01.  The design goals are to (1) streamline
+  project reporting and (2) provide fast planning and tracking for major project milestones.
+  If it is a burden to use, then it has failed.  If it turns out to be extra busy work
+  for everyone, then we can scrap it.  In the meantime, please help to make it a tool
+  you would like to use by providing feedback and suggesting features.')
 
 Announcement.create(
   name: 'Announcement 2',
@@ -148,8 +153,7 @@ Announcement.create(
 Task.delete_all
 
 Task.create(
-  task_id: 1,
-  project_id: 1,
+  project_id: project_1.id,
   name: "MyString",
   description: "MyText",
   due_date: "2012-01-12",
@@ -162,8 +166,7 @@ Task.create(
   priority_task_flag: true)
 
 Task.create(
-  task_id: 2,
-  project_id: 2,
+  project_id: project_2.id,
   name: "MyString",
   description: "MyText",
   due_date: "2012-01-12",
@@ -176,8 +179,7 @@ Task.create(
   priority_task_flag: true)
 
 Task.create(
-  task_id: 3,
-  project_id: 2,
+  project_id: project_3.id,
   name: "MyString",
   description: "MyText",
   due_date: "2012-01-12",
@@ -190,8 +192,7 @@ Task.create(
   priority_task_flag: false)
 
 Task.create(
-  task_id: 4,
-  project_id: 3,
+  project_id: project_1.id,
   name: "MyString",
   description: "MyText",
   due_date: "2012-01-12",

@@ -19,12 +19,16 @@ Coagent::Application.routes.draw do
   		get 'top'
   	end
   end  
+  
+  get 'projects/report' => 'projects#report', as: 'generate_projects_report'
+  
   resources :projects do
   	collection do
   		get 'list'
   		get 'top'
   	end
   end
+
   resources :announcements do
   	collection do
   		get 'list'
