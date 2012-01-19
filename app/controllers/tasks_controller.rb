@@ -12,7 +12,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/list
   def list
-    @tasks = Task.order(:priority)
+    @tasks = Task.order(:due_date)
 
     respond_to do |format|
       format.html # list.html.erb

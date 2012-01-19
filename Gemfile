@@ -39,3 +39,7 @@ gem "jquery-ui-themes", "~> 0.0.4"
 
 gem 'prawn'
 gem 'prawnto'
+
+gem 'RedCloth'
+
+gem 'net-ldap'

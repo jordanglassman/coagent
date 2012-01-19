@@ -2,13 +2,13 @@
   <p id="notice"><%= notice %></p>
 <% end %>
 
-<h1>My Projects</h1>
+<h1>My Tasks</h1>
 
 <table>
-  <%= render @projects %>
+  <%= render @tasks %>
 </table>
 
 <br />
 
-<div id='new_project_button'><%= button_to 'New Project', new_project_path, 
+<div id='new_project_button'><%= button_to 'New Task', new_task_path, 
 	method: 'get', class: 'medium_button' %></div>

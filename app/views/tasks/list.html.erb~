@@ -1,0 +1,14 @@
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>My Projects</h1>
+
+<table>
+  <%= render @projects %>
+</table>
+
+<br />
+
+<div id='new_project_button'><%= button_to 'New Project', new_project_path, 
+	method: 'get', class: 'medium_button' %></div>
