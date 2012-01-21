@@ -14,5 +14,9 @@ $(function (){
 });
 
 $(function (){
-        $('#announcement_min_date').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#announcement_min_date').datepicker({dateFormat: 'yy-mm-dd'});
+});
+
+$(function (){
+		$('#task_due_date').datepicker({dateFormat: 'yy-mm-dd'});
 });

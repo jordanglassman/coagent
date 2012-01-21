@@ -17,22 +17,27 @@
     <div id="side">
     <p><%= @current_time.localtime.strftime("%Y-%m-%d\n%H:%M:%S") %></p>
       <ul>
+      <li><%= link_to 'Home', account_home_path %></li>      
       <li><%= link_to 'What\'s New', list_announcements_path %></li>
       <li><%= link_to 'Top 5 Projects', top_projects_path %></li>
       <li><%= link_to 'Weekly Priorities', top_tasks_path %></li>
       <li><%= link_to 'My Projects', list_projects_path %></li>
       <li><%= link_to 'My Tasks', tasks_path %></li>
-      <li><a href="http://www..../faq">My Account</a></li>
-      <li><a href="http://www..../faq">Feedback</a></li>
+      <li><%= link_to 'My Account', account_settings_path %></li>
+      <li><%= link_to 'Feedback', compose_feedback_path %></li>
+      <li><%= link_to 'Suggest Feature', compose_suggestion_path %></li>
       </ul>
       
       <% if session[:user_id] %>
       	<%= button_to 'Logout', logout_path, method: :delete %>
       <% end %>
       
-      <% if true # this will eventually be the admin tasks %>
+      <% if session[:user_id] and session[:group_id]=='Super Users' %>
       	<ul>
       	  <li><%= link_to 'Edit Announcements', announcements_path %></li>
+      	  <li><%= link_to 'Edit Users', users_path %></li>
+      	  <li><%= link_to 'All Projects', projects_path %></li>
+      	  <li><%= link_to 'All Tasks', tasks_path %></li>      	  
       	</ul>
       <% end %>
       

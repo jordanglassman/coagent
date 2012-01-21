@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
   	user = User.find_by_username(params[:username])
 
-  	# temporary backdoor for testings
+  	# temporary backdoor for testing
   	if user and user.name == 'admin' and user.authenticate(params[:password])
   		session[:user_id] = user.id
   	  session[:group_id] = user.groups[0].name

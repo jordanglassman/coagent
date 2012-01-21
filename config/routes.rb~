@@ -1,9 +1,12 @@
 Coagent::Application.routes.draw do
 
-  get "account/settings"
+  get "feedback/compose_feedback", as: :compose_feedback
+  get "feedback/compose_feature_suggestion", as: :compose_suggestion
+  post "feedback/transmit", as: :transmit_feedback
 
-  get "account/home"
-
+  match 'settings' => 'account#settings', as: :account_settings
+  match 'home' => 'account#home', as: :account_home
+  
 	controller :sessions do
 		get 'login' => :new
 		post 'login' => :create
@@ -16,12 +19,16 @@ Coagent::Application.routes.draw do
   		get 'top'
   	end
   end  
+  
+  get 'projects/report' => 'projects#report', as: 'generate_projects_report'
+  
   resources :projects do
   	collection do
   		get 'list'
   		get 'top'
   	end
   end
+
   resources :announcements do
   	collection do
   		get 'list'
@@ -79,7 +86,7 @@ Coagent::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'projects#index'
+  root :to => 'account#home'
 
   # See how all your routes lay out with "rake routes"
 

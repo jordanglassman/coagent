@@ -44,7 +44,8 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new(project_id: params[:project_id])
-
+		@next_available_id = Task.maximum(:id) + 1
+		
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @task }
@@ -60,7 +61,9 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
+
 		@project = Project.find(@task.project_id)
+		@next_available_id = Task.maximum(:id) + 1
 		
 		@project.tasks.build
 		

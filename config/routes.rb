@@ -20,8 +20,11 @@ Coagent::Application.routes.draw do
   	end
   end  
   
-  get 'projects/report' => 'projects#report', as: 'generate_projects_report'
-  
+  get 'projects/report' => 'projects#report', as: 'generate_projects_report', 
+    defaults: { format: 'pdf' }
+
+  get 'projects/reports' => 'projects#reports', as: 'projects_reports_archive' 
+    
   resources :projects do
   	collection do
   		get 'list'
