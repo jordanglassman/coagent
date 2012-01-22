@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  belongs_to :projects
+  belongs_to :project
   
   validates :project_id, :name, :due_date, :severity, 
   	:status, :resource, :deliverable, presence: true

@@ -3,14 +3,15 @@
 <% end %>
 
 <h1>Listing tasks</h1>
+
 <div id="button_holder">
 <%= button_to 'New Task', new_task_path, class: 'medium_button floated_button' %>
-<%= button_to 'Designate Priority Tasks', index_update_tasks_path, class: 'medium_button floated_button', method: 'post' %>
 </div>
+
 <%= form_tag index_update_tasks_path, method: 'post' do %>
 
-
 <%= submit_tag 'Designate Priority Tasks' %>
+
 <div id="list">
 <table width="100%">
   <tr>

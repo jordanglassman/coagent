@@ -8,11 +8,9 @@ class UserTest < ActiveSupport::TestCase
 		assert user.errors[:name].any?
 		assert user.errors[:email].any?
 		assert user.errors[:password_digest].any?
-		assert user.errors[:group_id].any?
 	end
 	test "username must be 1 <= chars <= 254" do
 		user = User.new(
-			group_id: 1,
 			email: "test@test.com",
 			name: "test",
 			password_digest: "test"
@@ -24,7 +22,6 @@ class UserTest < ActiveSupport::TestCase
 	end
 	test "name must be 1 <= chars <= 254" do
 		user = User.new(
-			group_id: 1,
 			email: "test@test.com",
 			username: "test",
 			password_digest: "test"
@@ -36,7 +33,6 @@ class UserTest < ActiveSupport::TestCase
 	end
 	test "password_digest must be 1 <= chars <= 254" do
 		user = User.new(
-			group_id: 1,
 			email: "test@test.com",
 			name: "test",
 			username: "test"
@@ -47,15 +43,6 @@ class UserTest < ActiveSupport::TestCase
 		user.password_digest = 'a'*500
 		assert user.invalid?, "password digest should fail due to >254 char"
 		assert_equal "is too long (maximum is 254 characters)",user.errors[:password_digest].join('; ')
-		end
-		test "group_id must be a number and be 1..4" do
-		  user = users(:one)
-		  user.group_id = 'q'
-		  assert user.invalid?,"group_id should fail due to not being a number"
-		  assert_equal "is not a number; is not included in the list",user.errors[:group_id].join('; '),"first test"
-		  user.group_id = 534.432
-		  assert user.invalid?,"group_id should fail due to not being an integer 1-4"
-		  assert_equal "must be an integer; is not included in the list",user.errors[:group_id].join('; '),"second test"
 		end
 	test "email must be 3 <= chars <= 254" do
 		user = users(:one)
@@ -81,7 +68,6 @@ class UserTest < ActiveSupport::TestCase
 	  user = User.new(
 	      username: "MyUsername",
 	      name: "MyString",
-	      group_id: 1,
 	      email: users(:user_with_valid_email).email,
 	      password_digest: "MyStringusername"
 	  )

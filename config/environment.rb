@@ -12,9 +12,6 @@ Coagent::Application.configure do
 	}
 end
 
-GROUPS = { '1' => 'Super Users', '2' => 'Management Group', 
-'3' => 'Project Managers', '4' => 'Technical Leads' }
-
 class AuditLogger < Logger
   def format_message(severity, timestamp, progname, msg)
     "#{timestamp.to_formatted_s(:db)} #{severity} #{msg}\n" 

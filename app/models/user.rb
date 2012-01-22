@@ -5,8 +5,11 @@ class User < ActiveRecord::Base
 
 		has_and_belongs_to_many :groups, uniq: true
 		
-		validates :username, :name, :email, :password_digest, presence: true
+		validates :username, :name, :email, presence: true
 		
+		# this validation is contained in activemodel::securepassword
+		#validates :password_digest, presence: true
+		 
 		validates :username, length: {minimum: 1, maximum: 254}
 		validates :name, length: {minimum: 1, maximum: 254}
 		validates :password_digest, length: {minimum: 1, maximum: 254}		

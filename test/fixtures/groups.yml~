@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  id: 1
+  gid: 1
   name: MyGroup1
 
 two:
-  id: 2
+  gid: 2
   name: MyGroup2

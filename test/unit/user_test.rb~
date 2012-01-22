@@ -42,10 +42,50 @@ class UserTest < ActiveSupport::TestCase
 			username: "test"
 		)
 		user.password_digest = ""
-		assert user.invalid?, "password digest has <1 char"
-		
+		assert user.invalid?, "password digest should fail due to <1 char"
+		assert_equal "can't be blank; is too short (minimum is 1 characters)",user.errors[:password_digest].join('; ')
 		user.password_digest = 'a'*500
-		assert user.invalid?, "password digest has >254 char"
+		assert user.invalid?, "password digest should fail due to >254 char"
+		assert_equal "is too long (maximum is 254 characters)",user.errors[:password_digest].join('; ')
 		end
-		
+		test "group_id must be a number and be 1..4" do
+		  user = users(:one)
+		  user.group_id = 'q'
+		  assert user.invalid?,"group_id should fail due to not being a number"
+		  assert_equal "is not a number; is not included in the list",user.errors[:group_id].join('; '),"first test"
+		  user.group_id = 534.432
+		  assert user.invalid?,"group_id should fail due to not being an integer 1-4"
+		  assert_equal "must be an integer; is not included in the list",user.errors[:group_id].join('; '),"second test"
+		end
+	test "email must be 3 <= chars <= 254" do
+		user = users(:one)
+		user.email = 'd'
+		assert user.invalid?, "email should fail due to <3 char"
+		assert_equal "is too short (minimum is 3 characters); is not valid",user.errors[:email].join('; ')
+		user.email = 'a'*500
+		assert user.invalid?, "email should fail due to >254 char"
+		assert_equal "is too long (maximum is 254 characters); is not valid",user.errors[:email].join('; ')
+	end
+	test "email must be in the correct format" do
+	  user = users(:one)
+	  user.email = 'fdsaffsdfad'
+	  assert user.invalid?,"should be invalid due to being a single word"
+ 	  user.email = 'fdsaffsdfad@'
+	  assert user.invalid?,"should be invalid due to having a blank domain"
+	  user.email = '@fdsaffsdfad'
+	  assert user.invalid?,"should be invalid due to being a blank username"
+	  user.email = '$@#$!#$@jkfjdsklf.com'
+	  assert user.invalid?,"should be invalid due to special characters"
+	end
+	test "email must be unique" do
+	  user = User.new(
+	      username: "MyUsername",
+	      name: "MyString",
+	      group_id: 1,
+	      email: users(:user_with_valid_email).email,
+	      password_digest: "MyStringusername"
+	  )
+	  assert user.invalid?
+	  assert_equal "has already been taken",user.errors[:email].join('; ')
+	end
 end
