@@ -1,0 +1,27 @@
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>Distribute Weekly Project Status Report</h1>
+
+<div id="list">
+
+<%= button_to 'View Current Weekly Project Status Report', generate_projects_report_path, class: 'medium_button', method: :get %>
+
+<p>Distribute to Management Group users:</p>
+
+<table>
+<% @mg_users.each do |mg| %>
+  <tr class="<%= cycle('list_line_odd','list_line_even') %>">  
+    <td><%= check_box :mg, :id %></td>
+    <td><%= mg.id %></td>
+    <td><%= mg.name %></td>
+    <td><%= mg.email %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<br/>
+<%= button_to 'Send!', sent_projects_report_path, class: 'medium_button' %>
+</div>

@@ -3,10 +3,13 @@
 <% end %>
 
 <h1>All Projects</h1>
-
+<br/>
 <%= link_to 'New Project', new_project_path, class: 'medium_button' %>
 <%= link_to 'Generate Weekly Project Status Report', generate_projects_report_path, class: 'medium_button' %>
-
+<%= link_to 'Distribute Weekly Project Status Report', send_projects_report_path, class: 'medium_button' %>
+<br/>
+<br/>
+<br/>
 <table>
   <tr>
     <th>Name</th>

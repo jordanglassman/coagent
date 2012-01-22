@@ -1,10 +1,23 @@
 class ProjectsController < ApplicationController
 	
 	before_filter :set_taken_priorities
+	before_filter :render_report, only: 'sent'
 	
 	def set_taken_priorities
 		@taken = Project.select(:priority).order(:priority)
 	end
+
+	def render_report
+    @projects_tbd = Project.find_all_by_phase('To be delivered', order: :priority)
+    @projects_os = Project.find_all_by_phase('Ongoing support', order: :priority)
+
+    @start_date = Time.now.beginning_of_week.strftime("%m/%d/%Y")
+    @one_week_later = (Time.now.beginning_of_week + 1.week).strftime("%m/%d/%Y")
+    
+		#for some reason, this will not render to file
+		# todo
+	  #render template: 'projects/report.pdf.prawn', layout: false
+  end
 	
   # GET /projects
   # GET /projects.json
@@ -31,6 +44,30 @@ class ProjectsController < ApplicationController
     
     respond_to do |format|
       format.pdf
+    end
+  end
+
+  # GET /projects/send_reports
+  def send_reports
+  	
+    @mg_users = Group.joins(:users).select('users.id, users.name, users.email').where('groups.name = ?','Management Group')
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  # PUT /projects/sent
+  def sent
+
+    @mg_users = params[:mg]
+    @mg_users.each do |email, send_flag|
+    	if send_flag.to_i==1
+      	DistributeReports.weekly_mg_report(email).deliver
+      end
+    end
+    respond_to do |format|
+      format.html
     end
   end
   

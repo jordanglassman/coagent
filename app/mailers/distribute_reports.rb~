@@ -1,0 +1,14 @@
+class DistributeReports < ActionMailer::Base
+  default from: "from@example.com"
+
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.distribute_reports.weekly_mg_report.subject
+  #
+  def weekly_mg_report
+    @greeting = "Hi"
+
+    mail to: "to@example.org"
+  end
+end

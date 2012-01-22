@@ -3,13 +3,35 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.all
-
+    
+    Task.update_all(["priority_task_flag=?",true], id: params[:task_ids])
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @tasks }
     end
   end
 
+  # PUT /tasks/index_updates
+  def index_update
+
+    Task.all.each do |t|
+    	if !params[:task_ids].nil?
+    		if params[:task_ids].include? t.id.to_s
+    			t.update_attribute(:priority_task_flag, true)
+    		else
+    			t.update_attribute(:priority_task_flag, false)
+    		end
+    	end
+    end
+
+    @tasks = Task.all    
+
+    respond_to do |format|
+      format.html # index.html.erb 
+    end
+  end  
+  
   # GET /tasks/list
   def list
     @tasks = Task.order(:due_date)
@@ -55,6 +77,9 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
+    
+    # terrible hack, does not actually get next available id
+    @next_available_id = params[:id]
   end
 
   # POST /tasks

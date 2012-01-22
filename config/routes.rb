@@ -12,17 +12,22 @@ Coagent::Application.routes.draw do
 		post 'login' => :create
 		delete 'logout' => :destroy
 	end
-	
+
   resources :tasks do
   	collection do
   		get 'list'
   		get 'top'
+  		post 'index_update'
   	end
   end  
   
   get 'projects/report' => 'projects#report', as: 'generate_projects_report', 
     defaults: { format: 'pdf' }
 
+  get 'projects/send_reports' => 'projects#send_reports', as: 'send_projects_report'    
+
+  post 'projects/sent' => 'projects#sent', as: 'sent_projects_report'  
+  
   get 'projects/reports' => 'projects#reports', as: 'projects_reports_archive' 
     
   resources :projects do

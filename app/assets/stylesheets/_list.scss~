@@ -28,10 +28,15 @@
 		padding:0px;
 	}
 
+	th {
+		border: 1px solid $black3M;
+		display:table-cell;
+		padding:0px;
+	}
+	
 	td a {
 		display:block;
 		height: 100%;
-		padding:10px;
 		color: $black3M;
 	}
 	
@@ -50,6 +55,8 @@
 	
 	h3{
 		color: $black3M;
+		padding:10px;
+		
 	}
 
 	#new_project_button {

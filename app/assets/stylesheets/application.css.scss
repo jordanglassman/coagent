@@ -94,15 +94,18 @@
       text-align: right;
       padding-top: 0.2em;
       margin-right: 0.1em;
+      margin-left: 2em;
+      padding-left: 0.5em;
       display: block;
     }
 
     select, textarea, input {
-      margin-left: 0.5em;
+      margin: 0.5em;
+      width: 150px;
     }
 
     .submit {
-      margin-left: 4em;
+      margin: 4em;
     }
 
     br {

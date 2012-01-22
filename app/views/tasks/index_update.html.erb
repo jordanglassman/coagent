@@ -1,6 +1,19 @@
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
 <h1>Listing tasks</h1>
 
-<table>
+<div id="button_holder">
+<%= button_to 'New Task', new_task_path, class: 'medium_button floated_button' %>
+</div>
+
+<%= form_tag index_update_tasks_path, method: 'post' do %>
+
+<%= submit_tag 'Designate Priority Tasks' %>
+
+<div id="list">
+<table width="100%">
   <tr>
     <th>Priority?</th>
     <th>Id</th>
@@ -21,7 +34,7 @@
 
 <% @tasks.each do |task| %>
   <tr class="<%= cycle('list_line_odd','list_line_even') %>">  
-    <td><%= check_box_tag 'task' 'priority_task_flag' %></td>
+    <td><%= check_box_tag "task_ids[]", task.id, task.priority_task_flag %></td>
     <td><%= task.id %></td>
     <td><%= task.project_id %></td>
     <td><%= task.name %></td>
@@ -39,7 +52,9 @@
   </tr>
 <% end %>
 </table>
-
+</div>
 <br />
 
-<%= link_to 'New Task', new_task_path %>
+<% end %>
+
+
