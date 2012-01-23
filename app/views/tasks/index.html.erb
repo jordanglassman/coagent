@@ -5,7 +5,7 @@
 <h1>Listing tasks</h1>
 
 <div id="button_holder">
-<%= button_to 'New Task', new_task_path, class: 'medium_button floated_button' %>
+<%= link_to 'New Task', new_task_path, class: 'medium_button floated_button' %>
 </div>
 
 <%= form_tag index_update_tasks_path, method: 'post' do %>

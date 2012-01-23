@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'internal_users.rb'
 
 class UserTest < ActiveSupport::TestCase
 	test "user attributes must not be empty" do

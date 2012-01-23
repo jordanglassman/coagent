@@ -41,11 +41,13 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
- 	
+  	
     @user = User.new(params[:user])
+ 		User.internal_id = params[:user][:name]
 
     respond_to do |format|
       if @user.save
+				logger.info "email: #{@user.email}"
         format.html { redirect_to users_url, notice: "User #{@user.name} was successfully created." }
         format.json { render json: @user, status: :created, location: @user }
       else

@@ -25,21 +25,30 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :group_id %><br />
-    <%= f.number_field :group_id %>
+    <% for group in Group.all %>
+      <div>
+        <%= check_box_tag 'user[group_ids][]', group.id, @user.groups.include?(group) %>
+        <%= group.name %>
+      </div>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.email_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password, 'Password' %><br />
-    <%= f.password_field :password, size: 40 %>
+  <% if @action_name=='new' %>
+  	<%= f.label :password, 'Password' %><br />
+  <% else %>
+  	<%= f.label :password, 'Change Password' %><br /> 
+  <% end %>
+  <%= f.password_field :password, size: 40 %>
   </div>
   <div class="field">
     <%= f.label :password_confirmation, 'Confirm' %><br />
     <%= f.password_field :password_confirmation, size: 40 %>
   </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

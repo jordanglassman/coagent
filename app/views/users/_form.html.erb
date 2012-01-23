@@ -18,23 +18,23 @@
   <legend>Enter User Information</legend>
   <div class="field">
     <%= f.label :username %><br />
-    <%= f.text_field :username %>
+    <%= select 'user', 'username', InternalUsers.all.collect { |i| [ i.username, i.id ] }, {:prompt => 'Select AD Username'} %>
   </div>
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= select 'user', 'name', InternalUsers.all.collect { |i| [ i.name, i.id ] }, {:prompt => 'Select Name'} %>
   </div>
   <div class="field">
     <% for group in Group.all %>
       <div>
         <%= check_box_tag 'user[group_ids][]', group.id, @user.groups.include?(group) %>
-        <%= group.name %>
+        <%= group.name.strip %>
       </div>
     <% end %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email %>
+    <%= select 'user', 'email', InternalUsers.all.collect { |i| [ i.email, i.id ] }, {:prompt => 'Select Email'} %>
   </div>
   <div class="field">
   <% if @action_name=='new' %>
