@@ -1,6 +1,18 @@
+<script>
+$(
+  function(){
+		$( "#progressbar" ).progressbar({ value: <%= @percent_done %> });
+	}
+);
+</script>
+
 <% if notice %>
   <p id="notice"><%= notice %></p>
 <% end %>
+
+<%= hidden_field_tag 'progress', @percent_done %>
+<div id="progressbar"></div>
+<%= hidden_field_tag 'progress2', @percent_done %>
 <table>
   <tr>
     <td>

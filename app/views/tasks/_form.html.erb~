@@ -10,10 +10,9 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :task_id %><br />
-    <%= f.number_field :task_id %>
+    <%= f.label :task_tracking_number %><br />
+    <%= f.number_field :id, value: @next_available_id %>
   </div>
   <div class="field">
     <%= f.label :project_id %><br />
@@ -25,15 +24,22 @@
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, rows: 4 %>
   </div>
-  <div class="field">
-    <%= f.label :due_date %><br />
-    <%= f.date_select :due_date %>
-  </div>
+  <% if @task.due_date.blank? %>
+  	<div class="field">
+    		<%= f.label :due_date %><br />
+    		<%= f.text_field :due_date, value: 'Click for calendar' %>
+  	</div>
+  <% else %>
+  	<div class="field">
+    		<%= f.label :due_date %><br />
+    		<%= f.text_field :due_date, value: @task.due_date %>
+  	</div>
+  <% end %>
   <div class="field">
     <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, rows: 4 %>
   </div>
   <div class="field">
     <%= f.label :severity %><br />
@@ -51,10 +57,7 @@
     <%= f.label :deliverable %><br />
     <%= f.text_field :deliverable %>
   </div>
-  <div class="field">
-    <%= f.label :completed_date %><br />
-    <%= f.datetime_select :completed_date %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

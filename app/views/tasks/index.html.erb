@@ -2,7 +2,8 @@
 
 <table>
   <tr>
-    <th>Task</th>
+    <th>Priority?</th>
+    <th>Id</th>
     <th>Project</th>
     <th>Name</th>
     <th>Description</th>
@@ -20,7 +21,8 @@
 
 <% @tasks.each do |task| %>
   <tr class="<%= cycle('list_line_odd','list_line_even') %>">  
-    <td><%= task.task_id %></td>
+    <td><%= check_box_tag 'task' 'priority_task_flag' %></td>
+    <td><%= task.id %></td>
     <td><%= task.project_id %></td>
     <td><%= task.name %></td>
     <td><%= task.description %></td>

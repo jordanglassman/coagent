@@ -58,6 +58,10 @@ class ProjectsController < ApplicationController
   def show
     begin
       @project = Project.find(params[:id])
+      @percent_done = 100*((Date.today - @project.created_at.to_date).to_f/(@project.due_date - @project.created_at.to_date).to_f)
+      if @percent_done < 0 
+        @percent_done = 100
+      end
     rescue ActiveRecord::RecordNotFound
       logger.error "Attempt to access invalid project #{params[:id]}"
       redirect_to projects_url, notice: "Invalid project #{params[:id]} entered in URL"

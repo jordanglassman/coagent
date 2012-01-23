@@ -43,11 +43,11 @@
   </div>
   <div class="field">
     <%= f.label :severity %><br />
-    <%= f.number_field :severity %>
+    <%= select :task, :severity, [['Low', 1], ['Medium', 2], ['High', 3]], selected: 2 %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= select :task, :status, [['Open', 1], ['Implement', 2], ['Test', 3], ['Closed', 4], ['Rejected', 5]], selected: 1 %>
   </div>
   <div class="field">
     <%= f.label :resource %><br />

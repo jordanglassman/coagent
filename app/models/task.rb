@@ -5,7 +5,11 @@ class Task < ActiveRecord::Base
   	:status, :resource, :deliverable, presence: true
 
  	validates :id, uniqueness: true  
-  	
+
+ 	validates :severity, inclusion: { in: 1..3, message: "ID must be one of 1, 2, or 3" }
+
+ 	validates :status, inclusion: { in: 1..5, message: "ID must be an integer in 1 through 5" }
+ 	
   validate :validate_due_date
   def validate_due_date
   	if !due_date.blank?
