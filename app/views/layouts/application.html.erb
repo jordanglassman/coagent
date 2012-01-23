@@ -31,8 +31,8 @@
       <% if session[:user_id] %>
       	<%= button_to 'Logout', logout_path, method: :delete %>
       <% end %>
-      
-      <% if session[:user_id] and session[:group_id]=='Super Users' %>
+
+      <% if session[:user_id] and session[:group_id].include? 1 %>
       	<ul>
       	  <li><%= link_to 'Edit Announcements', announcements_path %></li>
       	  <li><%= link_to 'Edit Users', users_path %></li>

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   	# temporary backdoor for testing
   	if user and user.name == 'admin' and user.authenticate(params[:password])
   		session[:user_id] = user.id
-  	  session[:group_id] = user.groups[0].name
+  		session[:group_id] = user.groups.map &:id
   		redirect_to account_home_url, notice: 'Using admin backdoor for testing (bypassing AD authentication)'
   	elsif user
       ldap = Net::LDAP.new(
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       if ldap.bind
       	logger.info "Here: #{ldap}"
         session[:user_id] = user.id
-  		  session[:group_id] = user.groups[0].name
+  		  session[:group_id] = user.groups.map &:id
   		  redirect_to account_home_url
   		else
   			redirect_to login_url, alert: 'Invalid username/password combination (or perhaps an LDAP issue)'
@@ -34,6 +34,7 @@ class SessionsController < ApplicationController
 
   def destroy
   	session[:user_id] = nil
+  	session[:group_id] = nil
   	redirect_to login_url, notice: 'Successfully logged out'
   end
 

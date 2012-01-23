@@ -61,6 +61,7 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    User.internal_id = params[:user][:name]
     
     users_audit_log_file = File.open("#{Rails.root}/log/users.log",'a')
     users_audit_log = AuditLogger.new(users_audit_log_file)

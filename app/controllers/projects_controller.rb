@@ -73,7 +73,9 @@ class ProjectsController < ApplicationController
   
   # GET /projects/list
   def list
-    @projects = Project.order(:priority)
+  	
+    # defined in application_controller.rb
+    get_projects_by_group
 
     respond_to do |format|
       format.html # list.html.erb

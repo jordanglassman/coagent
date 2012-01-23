@@ -1,6 +1,6 @@
   <tr class="<%= cycle('list_line_odd','list_line_even') %>">
   
-    <td><h3><%= link_to task.priority_task_flag, task %></h3></td>    
+    <td><h3><%= link_to task.priority_task_flag==true ? 'Priority Task' : '', task %></h3></td>    
     <td><h3><%= link_to task.id, task %></h3></td>
     <td><h3><%= link_to task.name, task %></h3></td>
     <td><h3><%= link_to Project.find(task.project_id).name, task %></h3></td>

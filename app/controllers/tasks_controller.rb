@@ -34,7 +34,9 @@ class TasksController < ApplicationController
   
   # GET /tasks/list
   def list
-    @tasks = Task.order(:due_date)
+  	
+  	# define in application_controller.rb
+    get_tasks_by_group_or_name
 
     respond_to do |format|
       format.html # list.html.erb
