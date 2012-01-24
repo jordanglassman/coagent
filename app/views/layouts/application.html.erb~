@@ -22,7 +22,7 @@
       <li><%= link_to 'Top 5 Projects', top_projects_path %></li>
       <li><%= link_to 'Weekly Priorities', top_tasks_path %></li>
       <li><%= link_to 'My Projects', list_projects_path %></li>
-      <li><%= link_to 'My Tasks', tasks_path %></li>
+      <li><%= link_to 'My Tasks', list_tasks_path %></li>
       <li><%= link_to 'My Account', account_settings_path %></li>
       <li><%= link_to 'Feedback', compose_feedback_path %></li>
       <li><%= link_to 'Suggest Feature', compose_suggestion_path %></li>
@@ -31,13 +31,20 @@
       <% if session[:user_id] %>
       	<%= button_to 'Logout', logout_path, method: :delete %>
       <% end %>
-      
-      <% if session[:user_id] and session[:group_id]=='Super Users' %>
+
+      <% if session[:user_id] and session[:group_id].include? 1 %>
       	<ul>
       	  <li><%= link_to 'Edit Announcements', announcements_path %></li>
+      	  <br/>
       	  <li><%= link_to 'Edit Users', users_path %></li>
-      	  <li><%= link_to 'All Projects', projects_path %></li>
+      	  <li><%= link_to 'Edit Groups', groups_path %></li>
+      	  <br/>
+      	  <li><%= link_to 'All Projects', projects_path %></li> 
       	  <li><%= link_to 'All Tasks', tasks_path %></li>      	  
+     	  <br/>
+      	  <li><%= link_to 'Reports Archive', projects_reports_archive_path %></li>  
+     	  <br/>
+      	  <li><%= link_to 'Admin Log', panoptic_view_path %></li>  
       	</ul>
       <% end %>
       

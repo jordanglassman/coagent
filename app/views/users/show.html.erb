@@ -1,9 +1,13 @@
+<% if notice %>
 <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1><%= @user.name %></h1>
 
 <p>
   <b>Name:</b>
   <%= @user.name %>
-</p>
+</p>            
 
 <p>
   <b>Group:</b>
@@ -15,6 +19,13 @@
   <%= @user.email %>
 </p>
 
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
+<h2><%= @user.name %>'s Projects</h2>
+
+<table>
+  <%= render partial: "projects/project", collection: @projects %>
+</table>
+
+

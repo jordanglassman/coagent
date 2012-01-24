@@ -1,0 +1,124 @@
+<script>
+$(
+  function(){
+		$( "#progressbar" ).progressbar({ value: <%= @percent_done %> });
+	}
+);
+</script>
+
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<p>Project Elapsed Time</p>
+<div id="progressbar"></div>
+<br/>
+
+<table>
+  <tr>
+    <td>
+      <p>
+        <b>Name:</b>
+        <%= @project.name %>
+      </p>
+    </td>
+    <td>
+      <p>
+        <b>Due date:</b>
+        <%= @project.due_date %>
+      </p>
+    </td>   
+    <td>
+      <p>
+        <b>Phase:</b>
+        <%= @project.phase %>
+      </p>
+    </td>      
+  </tr>
+  <tr>
+    <td colspan="3">
+      <p>
+        <b>Description:</b>
+        <%= @project.description %>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2">
+      <p>
+        <b>Priority:</b>
+        <%= @project.priority %>
+     </p>
+    </td>
+   <td>
+     <p>
+       <b>Status:</b>
+       <%= @project.status %>
+     </p>
+   </td>    
+    <td>
+      <p>
+        <b>Project manager:</b>
+        <%= @project.get_user(@project.project_manager) %>
+        (PM UID: <%= @project.project_manager %>)
+      </p>
+    </td>
+  </tr>
+  <tr>
+  <td>
+<p>
+  <b>Status last updated:</b>
+  <%= @project.status_last_updated.localtime %>
+</p>  
+</td>
+    <td>
+      <p>
+        <b>Technical lead:</b>
+        <%= @project.get_user(@project.technical_lead) %>
+        (TL UID: <%= @project.technical_lead %>)
+     </p>
+   </td>
+ </tr>
+  <tr>
+    <td colspan="3">
+      <p>
+        <b>Key Resources:</b>
+        <%= @project.key_resources %>
+      </p>
+    </td>
+  </tr>
+  <tr> 
+</table>
+
+<br/>
+
+<div id="button_holder">
+<div id="floated_button"><%= button_to 'Edit Project', edit_project_path(@project), 
+	method: 'get', class: 'medium_button' %></div>
+<div id="floated_button"><%= button_to 'Back to My Projects', list_projects_path, 
+	method: 'get', class: 'medium_button' %></div>
+</div>
+
+<h1>Project Tasks</h1>
+
+<table>
+
+<% @project.tasks.order(:due_date).each do |task| %>
+  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+    <td><h3><%= link_to task.id, task %></h3></td>
+    <td><h3><%= link_to task.name, task %></h3></td>
+    <td><h3><%= link_to truncate(task.description,length: 50), task %></h3></td>
+    <td><h3><%= link_to task.due_date.to_s+' ('+distance_of_time_in_words(@current_time, task.due_date)+" from now)", task %></h3></td>
+    </tr>
+<% end %>
+</table>
+
+<br/>
+<br/>
+<div id="button_holder">
+<div id="floated_button">
+	<%= new_task_button(@project.id) %>
+</div>
+</div>
+
+

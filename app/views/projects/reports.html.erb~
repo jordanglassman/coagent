@@ -3,13 +3,10 @@
 <% end %>
 
 <h1>Weekly Status Reports Archive</h1>
-
-<div class='centered_button'>         
+                       
 <%= button_to 'Current Weekly Project Status Report', generate_projects_report_path, class: 'medium_button', method: :get %>
-<% @all_reports.each do |f| %>
-  <%= button_to "#{f.match(/\d{4}-\d{1,2}-\d{1,2}/)}", f.to_s, class: 'medium_button', method: :get %>
-<% end %>
-</div>
+
+
 
 <br />
 

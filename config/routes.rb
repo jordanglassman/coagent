@@ -1,5 +1,7 @@
 Coagent::Application.routes.draw do
 
+  get "panoptic/view"
+
   get "feedback/compose_feedback", as: :compose_feedback
   get "feedback/compose_feature_suggestion", as: :compose_suggestion
   post "feedback/transmit", as: :transmit_feedback
@@ -44,7 +46,8 @@ Coagent::Application.routes.draw do
 	end
 
   resources :users
-
+  resources :groups
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

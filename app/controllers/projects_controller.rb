@@ -40,6 +40,7 @@ class ProjectsController < ApplicationController
     @projects_os = Project.find_all_by_phase('Ongoing support', order: :priority)
 
     @start_date = Time.now.beginning_of_week.strftime("%m/%d/%Y")
+    @start_date_file = Time.now.beginning_of_week.strftime("%Y-%m-%d")
     @one_week_later = (Time.now.beginning_of_week + 1.week).strftime("%m/%d/%Y")
     
     respond_to do |format|
@@ -47,6 +48,16 @@ class ProjectsController < ApplicationController
     end
   end
 
+    # GET /projects/reports
+  def reports
+  	
+    @all_reports = Dir.glob("public/reports/weekly_status*.pdf")
+    @all_reports.map! { |f| f.sub!('public/','../') }
+    respond_to do |format|
+      format.html
+    end
+  end
+  
   # GET /projects/send_reports
   def send_reports
   	

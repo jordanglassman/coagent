@@ -28,6 +28,16 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+  def get_projects_by_uid_and_groups(user_id, group_ids)
+    @projects = []
+  	if group_ids.include? 3
+  	  @projects = Project.find_all_by_project_manager(user_id, order: :priority)
+  	end
+  	if group_ids.include? 4
+  	  @projects |= Project.find_all_by_technical_lead(user_id, order: :priority)
+  	end
+  end
+	
   # get a list of tasls depending on which group you're in
   # SU/MG get all, and TL/PM the tasks from the project's they're associated with
   def get_tasks_by_group_or_name

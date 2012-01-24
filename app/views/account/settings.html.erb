@@ -11,7 +11,7 @@
 
 <p>
   <b>Group:</b>
-  <%= @user.groups.each.each.map &:name  %>
+  <%= (@user.groups.each.each.map &:name).to_sentence  %>
 </p>
 
 <p>

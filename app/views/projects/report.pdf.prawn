@@ -28,4 +28,4 @@ end
 pdf.table list_headers + [['To be delivered','','','','']] + list_tbd + [['Ongoing support','','','','']] + list_os, 
   :row_colors => ["FFFFFF", "DDDDDD"]
 
-pdf.render_file("#{Rails.root}/public/reports/weekly_status_#{Date.today}.pdf")
+pdf.render_file("#{Rails.root}/public/reports/weekly_status_#{@start_date_file}.pdf")

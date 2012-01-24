@@ -4,65 +4,67 @@
 
 @import "colors";
 
-	#list{
-		width: 95%;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	
-	table {
-		border-collapse:collapse;
-	        width: 93%;
-	}
-	
-	tr {
-		border: 1px solid $black3M;
-	}
-	
-	tr:hover {
-		background-color: $lightblue3M;
-	}
+#list{
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+}
 
-	td {
-		border: 1px solid $black3M;
-		display:table-cell;
-		padding:0px;
-		//max-width: 300px;
-		word-wrap: break-word;
-	}
+table {
+	border-collapse:collapse;
+	width: 93%;
+}
 
-	th {
-		border: 1px solid $black3M;
-		display:table-cell;
-		padding:0px;
-	}
-	
-	td a {
-		display:block;
-		height: 100%;
-		color: $black3M;
-	}
-	
-	a:hover {
-		color: $black3M;
-		background-color: $lightblue3M;
-	}
-	
-	a:visited{
-		color: $black3M;
-	}
-	
-	h1{
-		text-align: center;
-	}
-	
-	h3{
-		color: $black3M;
-		padding:10px;
-		
-	}
+tr {
+	border: 1px solid $black3M;
+}
 
-	#new_project_button {
-		text-align: center;
-	}
-		
+tr:hover {
+	background-color: $lightblue3M;
+}
+
+td {
+	border: 1px solid $black3M;
+	display:table-cell;
+	padding:0px;
+	//max-width: 300px;
+	word-wrap: break-word;
+}
+
+th {
+	border: 1px solid $black3M;
+	display:table-cell;
+	padding:0px;
+}
+
+td a {
+	display:block;
+	height: 100%;
+	color: $black3M;
+}
+
+a:hover {
+	color: $black3M;
+	background-color: $lightblue3M;
+}
+
+a:visited{
+	color: $black3M;
+}
+
+h1{
+	text-align: center;
+}
+
+h3{
+	color: $black3M;
+	padding:10px;
+	
+}
+
+.centered_button {
+	text-align: center;
+}
+
+
+	

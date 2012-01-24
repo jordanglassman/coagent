@@ -7,17 +7,12 @@
 
 <p>
   <b>Group:</b>
-  <%= @user.group_id %>
+  <%= @user.groups[0].name %>
 </p>
 
 <p>
   <b>Email:</b>
   <%= @user.email %>
-</p>
-
-<p>
-  <b>Password digest:</b>
-  <%= @user.password_digest %>
 </p>
 
 

@@ -18,11 +18,11 @@
   <legend>Enter User Information</legend>
   <div class="field">
     <%= f.label :username %><br />
-    <%= select 'user', 'username', InternalUsers.all.collect { |i| [ i.username, i.id ] }, {:prompt => 'Select AD Username'} %>
+    <%= select 'user', 'username', InternalUsers.all.collect { |i| [ i.username, i.id ] }, { selected: ( InternalUsers.find_by_username(@user.username) ? InternalUsers.find_by_username(@user.username).id : nil) } %>
   </div>
   <div class="field">
     <%= f.label :name %><br />
-    <%= select 'user', 'name', InternalUsers.all.collect { |i| [ i.name, i.id ] }, {:prompt => 'Select Name'} %>
+    <%= select 'user', 'name', InternalUsers.all.collect { |i| [ i.name, i.id ] }, { selected: ( InternalUsers.find_by_name(@user.name) ? InternalUsers.find_by_name(@user.name).id : nil ) } %>
   </div>
   <div class="field">
     <% for group in Group.all %>
@@ -34,7 +34,7 @@
   </div>
   <div class="field">
     <%= f.label :email %><br />
-    <%= select 'user', 'email', InternalUsers.all.collect { |i| [ i.email, i.id ] }, {:prompt => 'Select Email'} %>
+    <%= select 'user', 'email', InternalUsers.all.collect { |i| [ i.email, i.id ] }, { selected: ( InternalUsers.find_by_email(@user.email) ? InternalUsers.find_by_email(@user.email).id : nil ) } %>
   </div>
   <div class="field">
   <% if @action_name=='new' %>
