@@ -1,5 +1,7 @@
 Coagent::Application.routes.draw do
 
+  get "panoptic/view"
+
   get "feedback/compose_feedback", as: :compose_feedback
   get "feedback/compose_feature_suggestion", as: :compose_suggestion
   post "feedback/transmit", as: :transmit_feedback
@@ -12,16 +14,24 @@ Coagent::Application.routes.draw do
 		post 'login' => :create
 		delete 'logout' => :destroy
 	end
-	
+
   resources :tasks do
   	collection do
   		get 'list'
   		get 'top'
+  		post 'index_update'
   	end
   end  
   
-  get 'projects/report' => 'projects#report', as: 'generate_projects_report'
+  get 'projects/report' => 'projects#report', as: 'generate_projects_report', 
+    defaults: { format: 'pdf' }
+
+  get 'projects/send_reports' => 'projects#send_reports', as: 'send_projects_report'    
+
+  post 'projects/sent' => 'projects#sent', as: 'sent_projects_report'  
   
+  get 'projects/reports' => 'projects#reports', as: 'projects_reports_archive' 
+    
   resources :projects do
   	collection do
   		get 'list'
@@ -36,7 +46,8 @@ Coagent::Application.routes.draw do
 	end
 
   resources :users
-
+  resources :groups
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

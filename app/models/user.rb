@@ -2,7 +2,13 @@ require 'email_validator'
 require 'internal_users'
 
 class User < ActiveRecord::Base
-		has_secure_password
+		#has_secure_password
+		#acts_as_audited
+		
+		acts_as_authentic do |c|
+		  c.crypto_provider = Authlogic::CryptoProviders::BCrypt
+		  c.login_field = :username 
+		end
 		
 		cattr_accessor :internal_id
 
@@ -28,10 +34,17 @@ class User < ActiveRecord::Base
 		before_validation :convert_internal_ids_to_names 
 					
 		def convert_internal_ids_to_names
-			internal_user = InternalUsers.find(internal_id)
-			self.name = internal_user.name
-			self.email = internal_user.email
-			self.username = internal_user.username
+			if internal_id.nil?
+			  logger.info 'internal_id was nil'
+			  # placefiller until alternate user create added
+			  return
+			else
+			  internal_user = InternalUsers.find(internal_id) 
+			  self.name = internal_user.name
+			  self.email = internal_user.email
+			  self.username = internal_user.username
+			  logger.info "email: #{self.email}"
+			end
 		end
 			
 		# get group name for display on users model since group_id is an integer 1-4 						
@@ -43,6 +56,31 @@ class User < ActiveRecord::Base
 			"#{name}"
 		end
 	
+		def username_select
+		  InternalUsers.find_by_username(:username)
+		end
+		
+		def username_select=(username)
+	    set = InternalUsers.find_or_create_by_username(:username) if username.present?
+	    set.username = username
+	  end
 
+	  def name_select
+		  InternalUsers.find_by_name(:name)
+		end
+		
+		def name_select=(name)
+	    set = InternalUsers.find_or_create_by_name(:name) if name.present?
+	    set.name = name
+	  end
+	  
+		def email_select
+		  InternalUsers.find_by_email(:email)
+		end
+		
+		def email_select=(email)
+	    set = InternalUsers.find_or_create_by_email(:email) if email.present?
+	    set.email = email
+	  end	  
 
 end

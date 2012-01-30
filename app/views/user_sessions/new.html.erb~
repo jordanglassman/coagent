@@ -13,7 +13,7 @@
   <fieldset>
   <legend>Please Log In</legend>
   <div>
-    <%= label_tag :username, 'Username' %><br />
+    <%= label_tag :username, 'Username: INTERNAL\\' %><br />
     <%= text_field_tag :username, params[:username] %>
   </div>
   <div>

@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 	
+	helper_method :sort_column, :sort_direction
+	
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(:name)
+    @users = User.order(sort_column + ' ' + sort_direction)
     
-    respond_to do |format|
+    respond_to do |format|                            
       format.html # index.html.erb
       format.json { render json: @users }
     end
@@ -16,6 +18,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
+    # defined in application_controller.rb
+    get_projects_by_uid_and_groups params[:id], @user.groups.map(&:id)
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -41,11 +46,13 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
- 	
+  	
     @user = User.new(params[:user])
+ 		User.internal_id = params[:user][:name]
 
     respond_to do |format|
       if @user.save
+				logger.info "email: #{@user.email}"
         format.html { redirect_to users_url, notice: "User #{@user.name} was successfully created." }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -59,11 +66,13 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    User.internal_id = params[:user][:name]
     
     users_audit_log_file = File.open("#{Rails.root}/log/users.log",'a')
     users_audit_log = AuditLogger.new(users_audit_log_file)
 
     respond_to do |format|
+    	# this method is in config/init/model_patch, but it bypasses validations!
     	status,changed = @user.update_attributes_changed(params[:user])
       if status
       	users_audit_log.info "superuser #{User.find(session[:user_id]).username} made changes to #{@user.username}: #{changed}"
@@ -83,8 +92,18 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to users_url, notice: "User #{@user.name} was successfully destroyed." }
       format.json { head :ok }
     end
   end
+  
+  private
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
+  
 end

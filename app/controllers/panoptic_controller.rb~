@@ -1,5 +1,7 @@
 class PanopticController < ApplicationController
-  def view
+  
+	def view
+  	
   end
 
 end

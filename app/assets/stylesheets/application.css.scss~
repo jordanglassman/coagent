@@ -97,10 +97,16 @@
       display: block;
     }
 
-    select, textarea, input {
+    select, textarea {
       margin-left: 0.5em;
+      width: 150px;
     }
 
+    input {
+      margin-left: 0.5em;
+      width: 150px;
+    }    
+    
     .submit {
       margin-left: 4em;
     }
@@ -110,3 +116,20 @@
     }
   }
 }
+
+
+.current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+.asc { 
+  background-image: url(up_arrow.gif); 
+}
+
+.desc { 
+  background-image: url(down_arrow.gif); 
+}
+
+
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120122193555) do
+ActiveRecord::Schema.define(:version => 20120130065757) do
 
   create_table "announcements", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,27 @@ ActiveRecord::Schema.define(:version => 20120122193555) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "audits", :force => true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         :default => 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], :name => "associated_index"
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
+  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
+  add_index "audits", ["user_id", "user_type"], :name => "user_index"
 
   create_table "groups", :force => true do |t|
     t.datetime "created_at"
@@ -78,10 +99,19 @@ ActiveRecord::Schema.define(:version => 20120122193555) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.string   "password_digest"
+    t.string   "crypted_password"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.datetime "last_request_at"
+    t.string   "password_salt"
+    t.integer  "login_count"
+    t.integer  "failed_login_count"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.string   "persistence_token"
   end
 
 end

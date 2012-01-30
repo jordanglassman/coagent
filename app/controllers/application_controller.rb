@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  helper_method :current_user_session, :current_user
+  
   before_filter :set_var
-  before_filter :authorize
+  before_filter :require_user
   
   # get a list of projects depending on which group you're in
   # SU/MG get all, and TL/PM get TL, PM, or TL+PM
@@ -59,13 +61,48 @@ class ApplicationController < ActionController::Base
   
   def set_var
   	@current_time = Time.now
-  	@action_name=params[:action]
   end
   
-  def authorize
-  	unless User.find_by_id(session[:user_id])
-  		redirect_to login_url, notice: 'Please log in'
-  	end
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    #User.find(2).reset_persistence_token!
+    @current_user_session = UserSession.find
+   # @current_user_session.unauthorized_record.reset_persistence_token!
+
+  end
+
+  def current_user
+    return @current_user if defined?(@current_user)
+    #logger.debug "no current session: #{current_user_session.inspect }"
+    #logger.debug "no current session: #{current_user_session.record.inspect }"
+    @current_user = current_user_session && current_user_session.record
   end
   
+  def require_user
+    unless current_user
+      store_location
+      logger.debug "no current session: #{@current_user.inspect}"
+      flash[:notice] = "You must be logged in to access this page"
+      #redirect_to login_url
+      return false
+    end
+  end
+
+  def require_no_user
+    if current_user
+      store_location
+      flash[:notice] = "You must be logged out to access this page"
+      redirect_to login_url
+      return false
+    end
+  end
+  
+  def store_location
+    session[:return_to] = request.fullpath
+  end
+  
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
+    session[:return_to] = nil
+  end
 end

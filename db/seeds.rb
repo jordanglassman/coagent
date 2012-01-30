@@ -20,14 +20,41 @@ def create_seed_user(name,group)
 	new_user
 end
 
+InternalUsers.destroy_all
+
+InternalUsers.create(
+  username: "mlee",
+  name: "Michael Lee",
+  email: "mlee@cogentsystems.com"
+  )
+
+InternalUsers.create(
+  username: "bchan",
+  name: "Brian Chan",
+  email: "bchan@cogentsystems.com"
+  )
+
 Group.destroy_all
 
 Group.create([
-	{name: 'Super Users'},
-	{name: 'Management Group'},
-	{name: 'Project Managers'},	
-	{name: 'Technical Leads'}
+	{id: 1, name: 'Super Users'},
+	{id: 2, name: 'Management Group'},
+	{id: 3, name: 'Project Managers'},	
+	{id: 4, name: 'Technical Leads'}
 	])
+
+temp_group = Group.find_by_name('Super Users')
+temp_group.id = 1
+temp_group.save!
+temp_group = Group.find_by_name('Management Group')
+temp_group.id = 2
+temp_group.save!
+temp_group = Group.find_by_name('Project Managers')
+temp_group.id = 3
+temp_group.save!
+temp_group = Group.find_by_name('Technical Leads')
+temp_group.id = 4
+temp_group.save!
 
 User.destroy_all
 
