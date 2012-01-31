@@ -23,7 +23,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.order(:priority)
+    @projects_to_be_delivered = Project.find_all_by_phase('To be delivered', order: :priority)
+    @projects_ongoing_support = Project.find_all_by_phase('Ongoing support')
     @start_date = Time.now.beginning_of_week.strftime("%m/%d/%Y")
     @one_week_later = (Time.now.beginning_of_week + 1.week).strftime("%m/%d/%Y")
     
@@ -147,7 +148,11 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
-    
+    if params[:project][:phase] == 'Ongoing support' 
+    	Project.ongoing_support = true
+    else
+    	Project.ongoing_support = false
+    end
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }

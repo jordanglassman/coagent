@@ -2,7 +2,9 @@ class RemovePriorityFromOngoingSupportProjects < ActiveRecord::Migration
   def up
   	Project.all.each do |p|
   		if p.phase == 'Ongoing support'
-  			p.update_attributes!(priority: 0)
+  		  if p.priority != 0
+  		    p.update_attributes!(priority: 0)
+  		  end
   		end
   	end
   	counter = 1

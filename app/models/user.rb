@@ -2,10 +2,24 @@ require 'email_validator'
 require 'internal_users'
 
 class User < ActiveRecord::Base
-		#has_secure_password
-		#acts_as_audited
 
-	  cattr_accessor :internal_id
+	cattr_accessor :internal_id  
+  
+	  #using authlogic for authentication now
+    #has_secure_password
+    
+    #activate audit trail for all CRUD ops in model user
+     acts_as_audited :except => [
+       :persistence_token,
+       :perishable_token,
+       :login_count,
+       :failed_login_count,
+       :last_request_at,
+       :current_login_at,
+       :last_login_at,
+       :current_login_ip,
+       :last_login_ip
+     ]
 		
 		acts_as_authentic do |c|
 		  c.crypto_provider = Authlogic::CryptoProviders::BCrypt

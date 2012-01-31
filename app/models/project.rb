@@ -1,6 +1,8 @@
 class Project < ActiveRecord::Base
   has_many :tasks, dependent: :destroy
   
+  acts_as_audited
+  
   # flag for to skip uniq priority validations (all priorities are 0 for OS projects)
   cattr_accessor :ongoing_support
   

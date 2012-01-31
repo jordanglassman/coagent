@@ -170,7 +170,11 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.json
   def update
     @project = Project.find(params[:id])
-
+    if params[:project][:phase] == 'Ongoing support' 
+    	Project.ongoing_support = true
+    else
+    	Project.ongoing_support = false
+    end
     respond_to do |format|
       if @project.update_attributes(params[:project])
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
