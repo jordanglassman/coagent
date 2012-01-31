@@ -4,15 +4,19 @@ require 'internal_users'
 class User < ActiveRecord::Base
 		#has_secure_password
 		#acts_as_audited
+
+	  cattr_accessor :internal_id
 		
 		acts_as_authentic do |c|
 		  c.crypto_provider = Authlogic::CryptoProviders::BCrypt
 		  c.login_field = :username 
+		  #c.validate_password_field = false
+		  #c.crypted_password_field = false
+		  c.require_password_confirmation = true
+      c.ignore_blank_passwords = true
 		end
 		
-		cattr_accessor :internal_id
-
-		has_and_belongs_to_many :groups, uniq: true
+   	has_and_belongs_to_many :groups, uniq: true
 		
 		validates :username, :name, :email, presence: true
 		
@@ -81,6 +85,10 @@ class User < ActiveRecord::Base
 		def email_select=(email)
 	    set = InternalUsers.find_or_create_by_email(:email) if email.present?
 	    set.email = email
-	  end	  
+	  end
+
+	  def valid_ldap_password(password)
+	  	true
+	  end
 
 end

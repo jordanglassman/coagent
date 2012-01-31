@@ -1,4 +1,7 @@
 class FeedbackController < ApplicationController
+	
+	before_filter :require_user
+	
   def compose_feedback
   	respond_to do |format|
       format.html 

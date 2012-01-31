@@ -1,11 +1,16 @@
 class Project < ActiveRecord::Base
   has_many :tasks, dependent: :destroy
   
+  # flag for to skip uniq priority validations (all priorities are 0 for OS projects)
+  cattr_accessor :ongoing_support
+  
   validates :name, presence: true
   validates :name, uniqueness: true
     
-  validates :priority, numericality: { only_integer: true, greater_than_or_equal_to: 1}
-  validates :priority, uniqueness: true
+  validates :priority, numericality: { only_integer: true, 
+    greater_than_or_equal_to: 0, 
+    less_than_or_equal_to: (self.find_all_by_phase('To be delivered').count) }
+  validates :priority, uniqueness: true, unless: :ongoing_support?
   
   validates :technical_lead, presence: true
   
@@ -53,6 +58,12 @@ class Project < ActiveRecord::Base
 		end
 	
 	private
+
+  # flag for to skip uniq priority validations (all priorities are 0 for OS projects)
+	def ongoing_support?
+		logger.debug "found ongoing support = #{ongoing_support}"
+		ongoing_support
+	end
 	
 		def ensure_not_referenced_by_any_tasks
 			if tasks.empty?

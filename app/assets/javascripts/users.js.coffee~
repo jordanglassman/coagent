@@ -10,6 +10,7 @@ jQuery ->
   
   $('#user_username').change ->
     username = $('#user_username :selected').text()
+    console.log 'test'
     id_selected = $('#user_username :selected').val()
     name = $(names).filter( -> $(this).val() == id_selected )
     email = $(emails).filter( -> $(this).val() == id_selected )    
@@ -48,4 +49,18 @@ jQuery ->
     if username
       $('#user_username').val(id_selected)
     else
-      $('#user_username').empty()   
+      $('#user_username').empty()
+
+  $("#ad").ready ->      
+    $('#password_fields').hide()
+    $('#no_ad_fields').hide()    
+    
+  $("#ad").change ->
+    if $("#ad:checked").is(':checked')
+      $('#password_fields').hide()
+      $('#no_ad_fields').hide()
+      $('#ad_selectors').show()      
+    else
+      $('#password_fields').show()
+      $('#no_ad_fields').show()
+      $('#ad_selectors').hide()

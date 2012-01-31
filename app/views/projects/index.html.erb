@@ -2,6 +2,12 @@
   <p id="notice"><%= notice %></p>
 <% end %>
 
+<script>
+$(function() {
+  $( "#tabs" ).tabs();
+});
+</script>
+
 <h1>All Projects</h1>
 <br/>
 <%= link_to 'New Project', new_project_path, class: 'medium_button' %>
@@ -10,48 +16,80 @@
 <br/>
 <br/>
 <br/>
-<table>
-  <tr>
+<div class="projects_tabs">
+  <div id="tabs">
+    <ul>
+      <li><a href="#tbd">Projects to be Delivered</a></li>
+      <li><a href="#ogs">Ongoing Support Projects</a></li>
+    </ul>
+    <div id="tbd">
+    <br/>
+    <table>
+    <tr>
     <th>Name</th>
-    <th>Description</th>
     <th>Priority</th>
     <th>Project manager</th>
     <th>Technical lead</th>
-    <th>Tl uid</th>
-    <th>Project manager</th>
-    <th>Pm uid</th>
     <th>Due date</th>
     <th>Phase</th>
-    <th>Status</th>
-    <th>Status last updated</th>
     <th>Key resources</th>
     <th></th>
     <th></th>
     <th></th>
-  </tr>
-
-<% @projects.each do |project| %>
-  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+    </tr>
+    
+    <% @projects_to_be_delivered.each do |project| %>
+    <tr class="<%= cycle('list_line_odd','list_line_even') %>">
     <td><%= project.name %></td>
-    <td><%= project.description %></td>
     <td><%= project.priority %></td>
-    <td><%= project.project_manager %></td>
-    <td><%= project.technical_lead %></td>
-    <td><%= project.tl_uid %></td>
-    <td><%= project.project_manager %></td>
-    <td><%= project.pm_uid %></td>
+    <td><%= project.project_manager == 'TBD' ? 'TBD' : ( (user = User.find_by_id(project.project_manager)) ? user.name : 'Unknown PM' ) %></td>
+    <td><%= project.technical_lead == 'TBD' ? 'TBD' : ( (user = User.find_by_id(project.technical_lead)) ? user.name : 'Unknown TL' ) %></td>
     <td><%= project.due_date %></td>
     <td><%= project.phase %></td>
-    <td><%= project.status %></td>
-    <td><%= project.status_last_updated %></td>
     <td><%= project.key_resources %></td>
     <td><%= link_to 'Show', project %></td>
     <td><%= link_to 'Edit', edit_project_path(project) %></td>
     <td><%= link_to 'Destroy', project, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+    </tr>
+    <% end %>
+    </table>
+    </div>
+    <div id="ogs">
+    <br/>    
+    <table>
+    <tr>
+    <th>Name</th>
+    <th>Project manager</th>
+    <th>Technical lead</th>
+    <th>Due date</th>
+    <th>Phase</th>
+    <th>Key resources</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    </tr>
+    
+    <% @projects_ongoing_support.each do |project| %>
+    <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+    <td><%= project.name %></td>
+    <td><%= project.project_manager == 'TBD' ? 'TBD' : ( (user = User.find_by_id(project.project_manager)) ? user.name : 'Unknown PM' ) %></td>
+    <td><%= project.technical_lead == 'TBD' ? 'TBD' : ( (user = User.find_by_id(project.technical_lead)) ? user.name : 'Unknown TL' ) %></td>
+    <td><%= project.due_date %></td>
+    <td><%= project.phase %></td>
+    <td><%= project.key_resources %></td>
+    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    <td><%= link_to 'Destroy', project, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+    <% end %>
+    </table>
+    </div>
+  </div>
+</div>
 
-<br />
+
+
+
+
 
 

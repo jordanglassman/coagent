@@ -65,13 +65,17 @@ class ApplicationController < ActionController::Base
   
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
+    #User.find(2).reset_persistence_token!
     @current_user_session = UserSession.find
+   # @current_user_session.unauthorized_record.reset_persistence_token!
+
   end
 
   def current_user
     return @current_user if defined?(@current_user)
-    logger.debug "no current session: #{current_user_session.inspect}"
-    @current_user = current_user_session && current_user_session.username
+    #logger.debug "no current session: #{current_user_session.inspect }"
+    #logger.debug "no current session: #{current_user_session.record.inspect }"
+    @current_user = current_user_session && current_user_session.record
   end
   
   def require_user
@@ -88,7 +92,7 @@ class ApplicationController < ActionController::Base
     if current_user
       store_location
       flash[:notice] = "You must be logged out to access this page"
-      redirect_to account_url
+      redirect_to login_url
       return false
     end
   end

@@ -1,3 +1,8 @@
+#require "authlogic_ldap"
+
 class UserSession < Authlogic::Session::Base
-  #logout_on_timeout true
+  logout_on_timeout true
+  ldap_host = 'domctl01'
+  ldap_port = 389
+  #verify_password_method :valid_ldap_credentials?
 end

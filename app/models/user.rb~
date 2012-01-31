@@ -56,6 +56,31 @@ class User < ActiveRecord::Base
 			"#{name}"
 		end
 	
+		def username_select
+		  InternalUsers.find_by_username(:username)
+		end
+		
+		def username_select=(username)
+	    set = InternalUsers.find_or_create_by_username(:username) if username.present?
+	    set.username = username
+	  end
 
+	  def name_select
+		  InternalUsers.find_by_name(:name)
+		end
+		
+		def name_select=(name)
+	    set = InternalUsers.find_or_create_by_name(:name) if name.present?
+	    set.name = name
+	  end
+	  
+		def email_select
+		  InternalUsers.find_by_email(:email)
+		end
+		
+		def email_select=(email)
+	    set = InternalUsers.find_or_create_by_email(:email) if email.present?
+	    set.email = email
+	  end	  
 
 end

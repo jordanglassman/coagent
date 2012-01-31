@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   def create
   	
     @user = User.new(params[:user])
- 		User.internal_id = params[:user][:name]
+ 		User.internal_id = params[:user][:name].blank? ? params[:user][:name] : nil 
 
     respond_to do |format|
       if @user.save

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120130065757) do
+ActiveRecord::Schema.define(:version => 20120131020254) do
 
   create_table "announcements", :force => true do |t|
     t.string   "name"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20120130065757) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.string   "persistence_token"
     t.datetime "last_request_at"
     t.string   "password_salt"
     t.integer  "login_count"
@@ -111,7 +112,6 @@ ActiveRecord::Schema.define(:version => 20120130065757) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.string   "persistence_token"
   end
 
 end

@@ -1,4 +1,7 @@
 class AnnouncementsController < ApplicationController
+	
+	before_filter :require_user
+	
   # GET /announcements
   # GET /announcements.json
   def index
