@@ -14,16 +14,20 @@ $(function() {
       <li><a href="#tasks">Tasks</a></li>      
       </ul>
     <div id="users">
-    <%= render partial: "audits", object: @audit_users  %>
+      <%= render partial: "audits", object: @audit_users  %>
+      <p><%= will_paginate @audit_users unless @audit_users.blank? %></p>
     </div>    
     <div id="groups">
       <%= render partial: "audits", object: @audit_groups  %>
+      <p><%= will_paginate @audit_groups unless @audit_groups.blank? %></p>      
     </div>
     <div id="projects">
       <%= render partial: "audits", object: @audit_projects  %>
+     <p><%= will_paginate @audit_projects unless @audit_projects.blank? %></p>      
     </div>
     <div id="tasks">
       <%= render partial: "audits", object: @audit_tasks  %>
+      <p><%= will_paginate @audit_tasks unless @audit_tasks.blank? %></p>      
     </div>      
   </div>
 

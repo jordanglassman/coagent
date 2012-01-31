@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
        :last_login_at,
        :current_login_ip,
        :last_login_ip
-     ]
+       ], with_associations: :groups
 		
 		acts_as_authentic do |c|
 		  c.crypto_provider = Authlogic::CryptoProviders::BCrypt
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 		end
 		
    	has_and_belongs_to_many :groups, uniq: true
-		
+
 		validates :username, :name, :email, presence: true
 		
 		# this validation is contained in activemodel::securepassword
@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
 		before_validation :convert_internal_ids_to_names 
 					
 		def convert_internal_ids_to_names
+		  logger.info "internal_id: #{internal_id}"
 			if internal_id.nil?
 			  logger.info 'internal_id was nil'
 			  # placefiller until alternate user create added

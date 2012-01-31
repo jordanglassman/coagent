@@ -6,37 +6,33 @@ class ApplicationController < ActionController::Base
   before_filter :set_var
   before_filter :require_user
   
+  WillPaginate.per_page = 10
+  
   # get a list of projects depending on which group you're in
   # SU/MG get all, and TL/PM get TL, PM, or TL+PM
   def get_projects_by_group
     session[:group_id].each do |group_id|
 			case Group.find(group_id).name
 			when 'Super Users', 'Management Group'
-				@projects = Project.order(:priority)
+				@projects = Project.in_priority_order.except_ongoing_support
 				break
 			when 'Project Managers' 
-				if @projects
-					@projects |= Project.find_all_by_project_manager(session[:user_id], order: :priority)
-				else
-					@projects = Project.find_all_by_project_manager(session[:user_id], order: :priority)
-				end
+				projects = Project.get_projects_by_pm(session[:user_id]).in_priority_order
+				@projects = @projects.blank? ? projects : @projects.merge(projects)
 			when 'Technical Leads'
-				if @projects
-					@projects |= Project.find_all_by_technical_lead(session[:user_id], order: :priority)
-				else
-					@projects = Project.find_all_by_technical_lead(session[:user_id], order: :priority)
-				end
+				projects = Project.get_projects_by_tl(session[:user_id]).in_priority_order
+				@projects = @projects.blank? ? projects : @projects.merge(projects)
 			end
 		end
 	end
-
+	
   def get_projects_by_uid_and_groups(user_id, group_ids)
     @projects = []
   	if group_ids.include? 3
-  	  @projects = Project.find_all_by_project_manager(user_id, order: :priority)
+  	  @projects = Project.Project.get_projects_by_pm(session[:user_id]).in_priority_order
   	end
   	if group_ids.include? 4
-  	  @projects |= Project.find_all_by_technical_lead(user_id, order: :priority)
+  	  @projects |= Project.get_projects_by_tl(session[:user_id]).in_priority_order
   	end
   end
 	
@@ -49,7 +45,7 @@ class ApplicationController < ActionController::Base
 				@tasks = Task.order(:due_date)
 				break
 			else
-				projects = Project.find_all_by_project_manager(session[:user_id], order: :priority) | Project.find_all_by_technical_lead(session[:user_id], order: :priority)
+				projects = Project.Project.get_projects_by_pm(session[:user_id]).in_priority_order | Project.Project.get_projects_by_tl(session[:user_id]).in_priority_order
 				@tasks = []
 				projects.each { |p| @tasks += p.tasks }
 				@tasks.sort! { |a,b| a.due_date <=> b.due_date }
@@ -70,7 +66,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.record
+    @current_user = (current_user_session && current_user_session.record) ? current_user_session.record.username : false
   end
   
   def require_user

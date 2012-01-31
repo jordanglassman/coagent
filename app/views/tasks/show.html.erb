@@ -2,6 +2,8 @@
   <p id="notice"><%= notice %></p>
 <% end %>
 
+<h1>Task <%= @task.name %></h1>
+
 <p>
   <b>Priority Task?:</b>
   <%= @task.priority_task_flag %>
@@ -14,7 +16,7 @@
 
 <p>
   <b>Project:</b>
-  <%= @task.project_id %>
+  <%= @task.project.name %>
 </p>
 
 <p>
@@ -39,12 +41,12 @@
 
 <p>
   <b>Severity:</b>
-  <%= @task.severity %>
+  <%= Task::SEVERITY.invert[@task.severity.to_i] %>
 </p>
 
 <p>
   <b>Status:</b>
-  <%= @task.status %>
+  <%= Task::STATUS.invert[@task.status.to_i] %>
 </p>
 
 <p>

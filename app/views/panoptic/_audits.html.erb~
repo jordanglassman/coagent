@@ -1,5 +1,5 @@
 <br/>
-<table id="audit_table">
+<table>
   <tr>
     <th>Time</th>
     <th>User</th>
@@ -12,7 +12,7 @@
     <td><%= audit.created_at.localtime.strftime("%A%n%m-%d-%y%n%H:%M:%S") %></td>
     <td><%= audit.user %></td>
     <td><%= audit.action  %></td>
-    <td><%= audit.audited_changes.to_s %></td>  
+    <td><%= truncate(audit.audited_changes.to_s, length: 120) %></td>  
     </tr>
   <% end %>
 </table>	

@@ -10,9 +10,10 @@ $(
   <p id="notice"><%= notice %></p>
 <% end %>
 
-<%= hidden_field_tag 'progress', @percent_done %>
+<p>Project Elapsed Time</p>
 <div id="progressbar"></div>
-<%= hidden_field_tag 'progress2', @percent_done %>
+<br/>
+
 <table>
   <tr>
     <td>
@@ -113,7 +114,7 @@ $(
 </table>
 
 <br/>
-
+<br/>
 <div id="button_holder">
 <div id="floated_button">
 	<%= new_task_button(@project.id) %>

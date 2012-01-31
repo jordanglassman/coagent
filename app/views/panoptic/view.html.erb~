@@ -4,19 +4,27 @@ $(function() {
 });
 </script>
 
-<div class="demo">
+<div id="audit_tabs">
 
-<div id="tabs">
-	<ul>
-	  <li><a href="#users">Users</a></li>
-		<li><a href="#groups">Groups</a></li>
-	</ul>
-	<div id="users">
-
-	</div>
-	<div id="groups">
-
-	</div>
-</div>
+  <div id="tabs">
+    <ul>
+      <li><a href="#users">Users</a></li>
+      <li><a href="#groups">Groups</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#tasks">Tasks</a></li>      
+      </ul>
+    <div id="users">
+    <%= render partial: "audits", object: @audit_users  %>
+    </div>    
+    <div id="groups">
+      <%= render partial: "audits", object: @audit_groups  %>
+    </div>
+    <div id="projects">
+      <%= render partial: "audits", object: @audit_projects  %>
+    </div>
+    <div id="tasks">
+      <%= render partial: "audits", object: @audit_tasks  %>
+    </div>      
+  </div>
 
 </div>

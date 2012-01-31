@@ -28,6 +28,11 @@ class Project < ActiveRecord::Base
   after_create :create_default_tasks
   before_create :update_status_last_updated
   before_destroy :ensure_not_referenced_by_any_tasks
+
+  scope :get_projects_by_tl, lambda { |u| where("projects.technical_lead = ?",u) }  
+  scope :get_projects_by_pm, lambda { |u| where("projects.project_manager = ?",u) }
+	scope :in_priority_order, order(:priority)
+	scope :except_ongoing_support, lambda { where("projects.phase != 'Ongoing support'") }
   
   # get user name for TL/PM by UID 						
 	def get_user(uid)

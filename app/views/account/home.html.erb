@@ -11,7 +11,15 @@
 
 <h1>Current Projects</h1>
 <div id="list">
-<table>
-<%= render @projects %>
-</table>
+	<table>
+		<tr>
+			<th>Priority</th>
+			<th>Name</th>
+			<th>Project Manager</th>
+			<th>Technical Lead</th>
+			<th>Due Date</th>
+			<th>Status</th>
+		</tr>
+		<%= render @projects %>
+	</table>
 </div>

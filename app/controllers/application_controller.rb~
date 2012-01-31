@@ -65,16 +65,11 @@ class ApplicationController < ActionController::Base
   
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
-    #User.find(2).reset_persistence_token!
     @current_user_session = UserSession.find
-   # @current_user_session.unauthorized_record.reset_persistence_token!
-
   end
 
   def current_user
     return @current_user if defined?(@current_user)
-    #logger.debug "no current session: #{current_user_session.inspect }"
-    #logger.debug "no current session: #{current_user_session.record.inspect }"
     @current_user = current_user_session && current_user_session.record
   end
   
@@ -83,7 +78,7 @@ class ApplicationController < ActionController::Base
       store_location
       logger.debug "no current session: #{@current_user.inspect}"
       flash[:notice] = "You must be logged in to access this page"
-      #redirect_to login_url
+      redirect_to login_url
       return false
     end
   end

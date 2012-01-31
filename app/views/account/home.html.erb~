@@ -1,2 +1,17 @@
-<h1>Account#home</h1>
-<p>Find me in app/views/account/home.html.erb</p>
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>What's New</h1>
+<div id="list">
+<table>
+<%= render @announcements %>
+</table>
+</div>
+
+<h1>Current Projects</h1>
+<div id="list">
+<table>
+<%= render @projects %>
+</table>
+</div>

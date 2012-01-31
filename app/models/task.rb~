@@ -1,5 +1,7 @@
 class Task < ActiveRecord::Base
   belongs_to :project
+
+  acts_as_audited
   
   validates :project_id, :name, :due_date, :severity, 
   	:status, :resource, :deliverable, presence: true

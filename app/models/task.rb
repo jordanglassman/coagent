@@ -18,7 +18,10 @@ class Task < ActiveRecord::Base
   		errors.add("Due date","is not later than today's date.")  unless due_date > Date.today
   	end
   end
-
+  
+  SEVERITY = { 'Low' => 1, 'Medium' => 2, 'High' => 3} 
+  STATUS = { 'Open' => 1, 'Implement' => 2, 'Test' => 3, 'Closed' => 4, 'Rejected' => 5 }   
+  
   private
   def self.attributes_protected_by_default
   end

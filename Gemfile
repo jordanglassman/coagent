@@ -50,3 +50,5 @@ gem 'active_hash'
 gem 'acts_as_audited'
 
 gem 'authlogic'
+
+gem 'will_paginate', '~> 3.0'

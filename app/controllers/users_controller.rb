@@ -31,7 +31,11 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
+    
+    @user.username = -1
+    @user.name = -1
+    @user.email = -1
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -48,11 +52,10 @@ class UsersController < ApplicationController
   def create
   	
     @user = User.new(params[:user])
- 		User.internal_id = params[:user][:name].to_i.integer? ? nil : params[:user][:name] 
+ 		User.internal_id = params[:user][:name].to_i.to_s == params[:user][:name] ? params[:user][:name] : nil 
     
     respond_to do |format|
       if @user.save
-				logger.info "email: #{@user.email}"
         format.html { redirect_to users_url, notice: "User #{@user.name} was successfully created." }
         format.json { render json: @user, status: :created, location: @user }
       else
