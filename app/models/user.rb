@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 		  #c.crypted_password_field = false
 		  c.require_password_confirmation = true
       c.ignore_blank_passwords = true
+      c.logged_in_timeout = 30.minutes # default is 10.minutes
 		end
 		
    	has_and_belongs_to_many :groups, uniq: true

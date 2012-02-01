@@ -59,8 +59,7 @@ $(
     <td>
       <p>
         <b>Project manager:</b>
-        <%= @project.get_user(@project.project_manager) %>
-        (PM UID: <%= @project.project_manager %>)
+        <%= @project.project_manager == 'TBD' ? 'TBD' : ( (user = User.find_by_id(@project.project_manager)) ? link_to(user.name, user_path(user.id)) : 'Unknown PM' ) %>
       </p>
     </td>
   </tr>
@@ -74,8 +73,7 @@ $(
     <td>
       <p>
         <b>Technical lead:</b>
-        <%= @project.get_user(@project.technical_lead) %>
-        (TL UID: <%= @project.technical_lead %>)
+        <%= @project.technical_lead == 'TBD' ? 'TBD' : ( (user = User.find_by_id(@project.technical_lead)) ? link_to(user.name, user_path(user.id)) : 'Unknown TL' ) %>
      </p>
    </td>
  </tr>

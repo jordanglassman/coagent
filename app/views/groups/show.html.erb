@@ -4,13 +4,17 @@
 
 <h1>Showing All Members of Group <%= @group.name %></h1>
 
-<table>
-  <% @users.each do |user| %>
-  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
-    <td><%= check_box_tag "user_ids[]", user.id, user.groups.find(@group.id).id==@group.id %></td>
-    <td><h3><%= link_to user.name, user %></h3></td>
-    <td><h3><%= link_to (user.groups.each.each.map &:name).to_sentence, user %></h3></td>
-  </tr>
-  <% end %>
-</table>
+<%= form_tag group_path(@group.id), method: :put %>
+<%= submit_tag 'Alter Group Memberships' %>
+<%= submit_tag 'Add User to Group' %>
+<%= select 'user', 'name', options_for_select(User.all.map { |u| [ u.name, u.id ] }), include_blank: true %>
+	<table>
+	  <% @users.each do |user| %>
+	  <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+	    <td><%= check_box_tag "user_ids[]", user.id, user.groups.find(@group.id).id==@group.id %></td>
+	    <td><h3><%= link_to user.name, user %></h3></td>
+	    <td><h3><%= link_to (user.groups.each.each.map &:name).to_sentence, user %></h3></td>
+	  </tr>
+	  <% end %>
+	</table>
 

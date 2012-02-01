@@ -9,7 +9,7 @@ Coagent::Application.routes.draw do
   match 'settings' => 'account#settings', as: :account_settings
   match 'home' => 'account#home', as: :account_home
   
-	controller :sessions do
+	controller :user_sessions do
 		get 'login' => :new
 		post 'login' => :create
 		delete 'logout' => :destroy

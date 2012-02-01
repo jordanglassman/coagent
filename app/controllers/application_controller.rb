@@ -29,10 +29,10 @@ class ApplicationController < ActionController::Base
   def get_projects_by_uid_and_groups(user_id, group_ids)
     @projects = []
   	if group_ids.include? 3
-  	  @projects = Project.Project.get_projects_by_pm(session[:user_id]).in_priority_order
+  	  @projects = Project.get_projects_by_pm(user_id).in_priority_order
   	end
   	if group_ids.include? 4
-  	  @projects |= Project.get_projects_by_tl(session[:user_id]).in_priority_order
+  	  @projects |= Project.get_projects_by_tl(user_id).in_priority_order
   	end
   end
 	

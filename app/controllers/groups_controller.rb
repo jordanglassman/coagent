@@ -22,6 +22,26 @@ class GroupsController < ApplicationController
     end
   end
   
+	# PUT /groups/1
+  def update
+  	
+  	# get list of all members of the group, subtract from the submitted list 
+  	# then, for each UID delete this group from their group lists
+    @group_members = Group.find(params[:id]).users.map &:id
+    difference = @group_members - (params[:user_ids].map(&:to_i))
+    #logger.debug "diff: #{difference}"
+    difference.each do |d|
+    	User.find(d).groups.delete(Group.find(params[:id]))
+    end
+    
+    unless params[:user][:name].blank?
+    	User.find(params[:user][:name]).groups<<(Group.find(params[:id]))
+    end
+    
+    redirect_to group_path(params[:id])
+
+  end
+  
   private
   def sort_column
     Group.column_names.include?(params[:sort]) ? params[:sort] : "name"

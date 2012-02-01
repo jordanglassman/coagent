@@ -11,7 +11,7 @@
 
 <p>
   <b>Group:</b>
-  <%= (@user.groups.each.each.map &:name).to_sentence  %>
+  <%= @user.groups.each.each.map { |g| link_to(g.name, group_path(g.id)) }.to_sentence.html_safe  %>
 </p>
 
 <p>

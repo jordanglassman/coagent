@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
     
   validates :priority, numericality: { only_integer: true, 
     greater_than_or_equal_to: 0, 
-    less_than_or_equal_to: (self.find_all_by_phase('To be delivered').count) }
+    less_than_or_equal_to: (self.find_all_by_phase('To be delivered').count+1) }
   validates :priority, uniqueness: true, unless: :ongoing_support?
   
   validates :technical_lead, presence: true
