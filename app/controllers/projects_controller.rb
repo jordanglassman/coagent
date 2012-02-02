@@ -1,11 +1,15 @@
 class ProjectsController < ApplicationController
 	
 	before_filter :require_user
-	before_filter :set_taken_priorities
+	before_filter :set_taken_priorities, :get_next_priority
 	before_filter :render_report, only: 'sent'
 	
 	def set_taken_priorities
 		@taken = Project.select(:priority).order(:priority)
+	end
+	
+	def get_next_priority
+		@next_priority = Project.find_all_by_phase('To be delivered').count + 1
 	end
 
 	def render_report
@@ -147,15 +151,26 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(params[:project])
+  	
+  	# add check to see if only priority is being changed
+  	if !params.has_key?(:project)
+  		@project.update_attributes(priority: params[:new_priority])
+  		project_verb = "updated"
+  	else
+    	@project = Project.new(params[:project])
+  		project_verb = "created"    	
+    end
+    
+    # don't remember what this is for...
     if params[:project][:phase] == 'Ongoing support' 
     	Project.ongoing_support = true
     else
     	Project.ongoing_support = false
     end
+    
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to @project, notice: "Project was successfully #{project_verb}." }
         format.json { render json: @project, status: :created, location: @project }
       	AssignmentNotifier.assigned(@project,'TL').deliver unless @project.technical_lead == 'TBD'
       	AssignmentNotifier.assigned(@project,'PM').deliver unless @project.project_manager == 'TBD'

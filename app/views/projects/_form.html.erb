@@ -21,8 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :priority %><br />
-    <%= f.number_field :priority %>
-    <p>(Available priorities: <%= @project.list_first_10_available_priorities @taken %>...)</p>
+    <%= f.number_field :priority, value: ( params.has_key?(:project) ? params[:project][:priority] : @next_priority ) %>
   </div>
 
   <div class="field">
