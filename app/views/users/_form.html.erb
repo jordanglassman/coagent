@@ -32,7 +32,7 @@
     </div>
     <div class="field">
       <%= f.label :email %><br />
-      <%= select 'user', 'email', options_for_select(InternalUsers.all.collect { |i| [ i.email, i.id ] }, InternalUsers.find_by_email(@user.email) ? InternalUsers.find_by_email(@user.email).id : nil), include_blank: true %>
+      <%= select 'user', 'email',options_for_select(InternalUsers.all.collect { |i| [ i.email, i.id ] }, InternalUsers.find_by_email(@user.email) ? InternalUsers.find_by_email(@user.email).id : nil), include_blank: true %>
     </div>
   </div>
 

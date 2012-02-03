@@ -152,28 +152,46 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
   	
+  	# declared to keep in method scope
+  	project_verb = 'dummy'
+  	
   	# add check to see if only priority is being changed
-  	if !params.has_key?(:project)
-  		@project.update_attributes(priority: params[:new_priority])
-  		project_verb = "updated"
+  	# project verb is for return flash in redirect below
+  	if params.has_key?(:new_priority)
+  		Project.transaction do
+				params[:new_priority].each do |p|
+					unless p[1].blank?
+						@project = Project.find(p[0])
+						@project.update_attributes(priority: p[1])
+						@project.save(validate: false)
+						project_verb = "updated"
+					end
+				end
+				@projects = Project.all
+				if !@projects.all? { |p| if p.priority != 0 then p.valid? else true end }
+					raise 'Re-prioritized project failed uniqueness validation check'
+					project_verb=''
+				end
+			end
   	else
     	@project = Project.new(params[:project])
-  		project_verb = "created"    	
+  		project_verb = "created"
+			# don't remember what this is for...
+			if params[:project][:phase] == 'Ongoing support' 
+				Project.ongoing_support = true
+			else
+				Project.ongoing_support = false
+			end  		
     end
-    
-    # don't remember what this is for...
-    if params[:project][:phase] == 'Ongoing support' 
-    	Project.ongoing_support = true
-    else
-    	Project.ongoing_support = false
-    end
-    
+    logger.debug "project_verb=#{project_verb}"
     respond_to do |format|
-      if @project.save
+      if @project.save and project_verb == 'created'
         format.html { redirect_to @project, notice: "Project was successfully #{project_verb}." }
         format.json { render json: @project, status: :created, location: @project }
       	AssignmentNotifier.assigned(@project,'TL').deliver unless @project.technical_lead == 'TBD'
       	AssignmentNotifier.assigned(@project,'PM').deliver unless @project.project_manager == 'TBD'
+      elsif project_verb == 'updated'
+      	format.html { redirect_to projects_path, notice: "Project was successfully #{project_verb}." }
       else
         format.html { render action: "new" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
