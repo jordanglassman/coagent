@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
 	before_filter :require_user
 	before_filter :set_taken_priorities, :get_next_priority
 	before_filter :render_report, only: 'sent'
+	helper_method :sort_column, :sort_direction
 	
 	def set_taken_priorities
 		@taken = Project.select(:priority).order(:priority)
@@ -27,7 +28,11 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects_to_be_delivered = Project.find_all_by_phase('To be delivered', order: :priority)
+  	if params[:sort]
+    	@projects_to_be_delivered = Project.find_all_by_phase('To be delivered', order: "#{sort_column} #{sort_direction}")
+    else
+    	@projects_to_be_delivered = Project.find_all_by_phase('To be delivered', order: :priority)
+    end
     @projects_ongoing_support = Project.find_all_by_phase('Ongoing support')
     @start_date = Time.now.beginning_of_week.strftime("%m/%d/%Y")
     @one_week_later = (Time.now.beginning_of_week + 1.week).strftime("%m/%d/%Y")
@@ -168,9 +173,11 @@ class ProjectsController < ApplicationController
 					end
 				end
 				@projects = Project.all
+				logger.debug @projects.map(&:priority)
 				if !@projects.all? { |p| if p.priority != 0 then p.valid? else true end }
-					raise 'Re-prioritized project failed uniqueness validation check'
-					project_verb=''
+					project_verb='update_failed'
+					logger.debug 'Priority validation failed, rolling back tx'
+					raise ActiveRecord::Rollback
 				end
 			end
   	else
@@ -192,6 +199,8 @@ class ProjectsController < ApplicationController
       	AssignmentNotifier.assigned(@project,'PM').deliver unless @project.project_manager == 'TBD'
       elsif project_verb == 'updated'
       	format.html { redirect_to projects_path, notice: "Project was successfully #{project_verb}." }
+      elsif project_verb == 'update_failed'
+      	format.html { redirect_to projects_path, notice: "Re-prioritized project failed uniqueness validation check, priorities not updated." }      	
       else
         format.html { render action: "new" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -230,4 +239,15 @@ class ProjectsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  
+  private
+  def sort_column
+    Project.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
+  
 end

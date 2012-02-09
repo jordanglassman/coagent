@@ -28,12 +28,12 @@ $(function() {
     <%= submit_tag 'Change Project Priorities' %>    
     <table>
     <tr>
-    <th>Name</th>
-    <th>Priority</th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "priority" %></th>
     <th>New Priority?</th>
-    <th>Project manager</th>
-    <th>Technical lead</th>
-    <th>Due date</th>
+    <th><%= sortable "project_manager" %></th>
+    <th><%= sortable "technical_lead" %></th>
+    <th><%= sortable "due_date" %></th>
     <th>Phase</th>
     <th>Key resources</th>
     <th></th>
