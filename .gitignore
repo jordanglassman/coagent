@@ -13,6 +13,3 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-
-/script/update_internal_users_table.rb
-/script/update_internal_users_table.rb~
