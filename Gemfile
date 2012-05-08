@@ -29,7 +29,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+#Gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test do
   # Pretty printed test output
@@ -52,3 +52,5 @@ gem 'acts_as_audited'
 gem 'authlogic'
 
 gem 'will_paginate', '~> 3.0'
+
+gem 'therubyracer'
