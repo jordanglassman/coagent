@@ -15,7 +15,7 @@ def create_seed_user(name,group)
 		email: "#{name}@cogentsystems.com",
 		password: 'password',
 		password_confirmation: 'password',
-		groups: Group.where("name is ?",group)
+		groups: Group.where("name = ?",group)
 	)
 	new_user
 end
@@ -65,7 +65,7 @@ User.create(
   email: "jpglassman@cogentsystems.com",
   password: 'password',
   password_confirmation: 'password',
-  groups: Group.where("name is 'Technical Leads'")
+  groups: Group.where("name = 'Technical Leads'")
 )
 
 User.create(
@@ -74,7 +74,7 @@ User.create(
   email: "admin@cogentsystems.com",
   password: 'password',
   password_confirmation: 'password',
-  groups: Group.where("name is 'Super Users'")
+  groups: Group.where("name = 'Super Users'")
 )
 
 create_seed_user('su','Super Users')
@@ -93,7 +93,7 @@ User.create(
   email: "mlee18@cogentsystems.com",
   password: 'password',
   password_confirmation: 'password',
-  groups: Group.where("name is 'Super Users'")
+  groups: Group.where("name = 'Super Users'")
 )
 
 User.create(
@@ -102,7 +102,7 @@ User.create(
   email: "wstelz@cogentsystems.com",
   password: 'password',
   password_confirmation: 'password',
-  groups: Group.where("name is 'Super Users'")
+  groups: Group.where("name = 'Super Users'")
 )
 
 User.create(
@@ -111,7 +111,7 @@ User.create(
   email: "gmorgon@cogentsystems.com",
   password: 'password',
   password_confirmation: 'password',
-  groups: Group.where("name is 'Super Users'")
+  groups: Group.where("name = 'Super Users'")
 )
 
 Project.delete_all
